@@ -1,0 +1,16 @@
+<% layout('client/layout') -%>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+      <h1><%= data.title %></h1>
+      <hr />
+      <%- data.content -%>
+      <p>
+        Placeholder text by
+        <a href="<%= data.authorlink %>"><%= data.createBy %></a>. Photographs
+        by <a href="<%= data.photographLink %>"><%= data.photographBy %></a>.
+      </p>
+    </div>
+  </div>
+</div>

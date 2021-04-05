@@ -1,0 +1,26 @@
+<% layout('client/layout') -%>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+      <% for(i = 0; i < data.length; i++) { %>
+      <div class="post-preview">
+        <a href="/post/<%= data[i].id %>">
+          <h2 class="post-title"><%= data[i].title %></h2>
+          <h3 class="post-subtitle"><%= data[i].subtitle %></h3>
+        </a>
+        <p class="post-meta">
+          Posted by
+          <a href="#"><%= data[i].createBy %></a>
+          on <%= data[i].createAt %>
+        </p>
+      </div>
+      <hr />
+      <% } %>
+      <!-- Pager -->
+      <div class="clearfix">
+        <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+      </div>
+    </div>
+  </div>
+</div>
