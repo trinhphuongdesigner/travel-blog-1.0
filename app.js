@@ -16,7 +16,7 @@ mongoose.connect("mongodb://localhost:27017/Blog", {
 const User = mongoose.model("User", {
   firstName: String,
   lastName: String,
-  birthday: String,
+  birthday: Date,
   role: String, // ADMIN | MANAGER | CONTRIBUTOR
   email: String,
   phone: String,
@@ -109,6 +109,51 @@ const BookmarkLink = mongoose.model("BookmarkLink", {
 const BookmarkFolder = mongoose.model("BookmarkFolder", {
   userId: mongoose.ObjectId,
   title: String,
+});
+
+// add new user
+app.get("/users", async (req, res) => {
+  try {
+    const addUserList = new User({
+      firstName: "Trịnh",
+      lastName: "Phương",
+      birthday: 09 / 07 / 1996,
+      role: "ADMIN", // ADMIN | MANAGER | CONTRIBUTOR
+      email: "trinhphuong.designer+1@gmail.com",
+      phone: "0386592529",
+      address: "Điện Biên Phủ - Đà Nẵng",
+      about: "String",
+      socialLink: {
+        facebook: "https://www.facebook.com/trinhphuong.designer",
+        instagram: "",
+        web: "",
+        other: "",
+      },
+      bookmarkFolderId: null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+    await addUserList.save();
+    res.send("Dang ky thanh cong");
+  } catch (err) {
+    res.send(error);
+  }
+});
+
+// add new user
+app.get("/categories", async (req, res) => {
+  try {
+    const addCategoryList = new Categories({
+      name: "Travel",
+      status: "ACTIVE", // ACTIVE | INACTIVE
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+    await addCategoryList.save();
+    res.send("Dang ky thanh cong");
+  } catch (err) {
+    res.send(error);
+  }
 });
 
 app.set("view engine", "ejs");
