@@ -189,6 +189,25 @@ app.get("/bookmark-folder", async (req, res) => {
   }
 });
 
+// add new BookmarkFolder
+app.get("/bookmark-folder", async (req, res) => {
+  const userId = await User
+  .find({ firstName: 'Trịnh'})
+  .select('_id')
+  .lean();
+
+  try {
+    const addBookmarkFolder = new BookmarkFolder({
+      userId: userId[0]._id,
+      title: "Bài viết hay",
+    });
+    await addBookmarkFolder.save();
+    res.send("addBookmarkFolder thanh cong");
+  } catch (err) {
+    res.send(error);
+  }
+});
+
 app.set("view engine", "ejs");
 app.set("views", "./views");
 
