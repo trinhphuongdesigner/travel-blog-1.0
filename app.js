@@ -33,9 +33,52 @@ const User = mongoose.model("User", {
   updatedAt: String,
 });
 
+// add new User
+app.get("/users", async (req, res) => {
+  try {
+    const addUserList = new User({
+      firstName: "Trịnh",
+      lastName: "Phương",
+      birthday: 09 / 07 / 1996,
+      role: "ADMIN", // ADMIN | MANAGER | CONTRIBUTOR
+      email: "trinhphuong.designer+1@gmail.com",
+      phone: "0386592529",
+      address: "Điện Biên Phủ - Đà Nẵng",
+      about: "String",
+      socialLink: {
+        facebook: "https://www.facebook.com/trinhphuong.designer",
+        instagram: "",
+        web: "",
+        other: "",
+      },
+      bookmarkFolderId: null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+    await addUserList.save();
+    res.send("Dang ky thanh cong");
+  } catch (err) {
+    res.send(error);
+  }
+});
+
 const UserFollower = mongoose.model("UserFollower", {
   followerId: mongoose.ObjectId,
   followingId: mongoose.ObjectId,
+});
+
+// add new UserFollower
+app.get("/follower", async (req, res) => {
+  try {
+    const addFollower = new UserFollower({
+      followerId: null,
+      followingId: null,
+    });
+    await addFollower.save();
+    res.send("addFollower thanh cong");
+  } catch (err) {
+    res.send(error);
+  }
 });
 
 const PostActivity = mongoose.model("PostActivity", {
@@ -50,6 +93,22 @@ const Categories = mongoose.model("Categories", {
   status: String, // ACTIVE | INACTIVE
   createdAt: String,
   updateAt: String,
+});
+
+// add new Category
+app.get("/categories", async (req, res) => {
+  try {
+    const addCategoryList = new Categories({
+      name: "Travel",
+      status: "ACTIVE", // ACTIVE | INACTIVE
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+    await addCategoryList.save();
+    res.send("addCategoryList thanh cong");
+  } catch (err) {
+    res.send(error);
+  }
 });
 
 const UserComment = mongoose.model("UserComment", {
@@ -111,46 +170,20 @@ const BookmarkFolder = mongoose.model("BookmarkFolder", {
   title: String,
 });
 
-// add new user
-app.get("/users", async (req, res) => {
-  try {
-    const addUserList = new User({
-      firstName: "Trịnh",
-      lastName: "Phương",
-      birthday: 09 / 07 / 1996,
-      role: "ADMIN", // ADMIN | MANAGER | CONTRIBUTOR
-      email: "trinhphuong.designer+1@gmail.com",
-      phone: "0386592529",
-      address: "Điện Biên Phủ - Đà Nẵng",
-      about: "String",
-      socialLink: {
-        facebook: "https://www.facebook.com/trinhphuong.designer",
-        instagram: "",
-        web: "",
-        other: "",
-      },
-      bookmarkFolderId: null,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
-    await addUserList.save();
-    res.send("Dang ky thanh cong");
-  } catch (err) {
-    res.send(error);
-  }
-});
+// add new BookmarkFolder
+app.get("/bookmark-folder", async (req, res) => {
+  const userId = await User
+  .find({ firstName: 'Trịnh'})
+  .select('_id')
+  .lean();
 
-// add new user
-app.get("/categories", async (req, res) => {
   try {
-    const addCategoryList = new Categories({
-      name: "Travel",
-      status: "ACTIVE", // ACTIVE | INACTIVE
-      createdAt: new Date(),
-      updatedAt: new Date(),
+    const addBookmarkFolder = new BookmarkFolder({
+      userId: userId[0]._id,
+      title: "Bài viết hay",
     });
-    await addCategoryList.save();
-    res.send("Dang ky thanh cong");
+    await addBookmarkFolder.save();
+    res.send("addBookmarkFolder thanh cong");
   } catch (err) {
     res.send(error);
   }
