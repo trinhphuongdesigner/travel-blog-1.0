@@ -10,4 +10,4 @@ const bookmarkLinkSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("bookmarklinks", bookmarkLinkSchema);
+module.exports = mongoose.model("bookmark_links", bookmarkLinkSchema);

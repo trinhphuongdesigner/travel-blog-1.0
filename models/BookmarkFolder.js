@@ -11,4 +11,4 @@ const bookmarkFolderSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("bookmarkfolders", bookmarkFolderSchema);
+module.exports = mongoose.model("bookmark_folders", bookmarkFolderSchema);

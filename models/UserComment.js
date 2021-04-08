@@ -7,4 +7,4 @@ const userCommentSchema = new Schema({
   userId: Schema.Types.ObjectId,F
 });
 
-module.exports = mongoose.model("usercomments", userCommentSchema);
+module.exports = mongoose.model("user_comments", userCommentSchema);

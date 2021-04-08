@@ -6,4 +6,4 @@ const userFollowerSchema = new Schema({
   followingId: Schema.Types.ObjectId,
 });
 
-module.exports = mongoose.model("userfollowers", userFollowerSchema);
+module.exports = mongoose.model("user_followers", userFollowerSchema);

@@ -14,4 +14,4 @@ const postActivitySchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("postactivities", postActivitySchema);
+module.exports = mongoose.model("post_activities", postActivitySchema);
