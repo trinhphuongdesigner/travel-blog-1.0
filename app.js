@@ -5,7 +5,9 @@ const mongoose = require("mongoose");
 const app = express();
 
 const routes = require("./routers");
-const port = 3001;
+const routesModule = require('./modules.routes');
+
+const {port} = 3001;
 
 mongoose.connect("mongodb://localhost:27017/Blog", {
   useNewUrlParser: true,
