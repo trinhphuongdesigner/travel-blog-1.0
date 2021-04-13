@@ -1,7 +1,9 @@
 const {bookmark_folders } = require ('../../models');
 
 module.exports = {
-    getbookmarkFolder: ()=> {},
+    getbookmarkFolder: ()=> {
+        
+    },
 
     getbookmarkFolders: ()=> {},
 
