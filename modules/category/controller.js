@@ -2,7 +2,7 @@ const {Category} = require('../../models');
 
 module.exports = {
     getCategory: () => { },
-    getCategorys: () => { },
+    getCategories: () => { },
     createCategory: () => { },
     updateCategory: () => { },
     deleteCategory: () => { },

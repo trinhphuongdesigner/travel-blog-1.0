@@ -5,7 +5,7 @@ module.exports = {
     users: ()=> {},
 
     createUser: async (req,res)=> {
-        const addUser = await new userSchema ({
+        const addUser = await new u ({
             firstName : "nguyen",
             lastName : "son",
             role: "manager", //amin,manager,contributor

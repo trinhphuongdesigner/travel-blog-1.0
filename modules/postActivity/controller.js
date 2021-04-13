@@ -2,7 +2,7 @@ const {post_activity} = require ('../../models');
 
 module.exports = {
     postActivity : ()=> {},
-    postActivitys : ()=> {},
+    postActivities : ()=> {},
     createPostActivity : ()=> {},
     updatePostActivity : ()=> {},
     deletePostActivity : ()=> {},
