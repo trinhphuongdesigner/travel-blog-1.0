@@ -1,9 +1,10 @@
-const {user_comment} = require ('../../models');
+const { user_comment } = require("../../models");
 
 module.exports = {
-    userComment: ()=> {},
-    userComments: ()=> {},
-    createUserComment: ()=> {},
-    updateUserComment: ()=> {},
-    deleteUserComment: ()=> {},
-}
+  getUserComment: () => {},
+  getUserComments: () => {},
+  createUserComment: () => {},
+  updateUserComment: () => {},
+  deleteUserComment: () => {},
+};
+  
