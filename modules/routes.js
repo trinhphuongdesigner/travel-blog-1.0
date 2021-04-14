@@ -11,14 +11,14 @@ const userCommentRouter = require("./userComment/routes");
 const userFollowerRouter = require("./userFollower/routes");
 // const userRouter = require('./users/routes');
 
-router.use("/bookmark-folder", bookmarkFolderRouter);
-router.use("/bookmark-link", bookmarkLinkRouter);
-router.use("/category", categoryRouter);
-router.use("/comment", commentRouter);
-router.use("/post-activity", postActivityRouter);
+router.use("/bookmark-folders", bookmarkFolderRouter);
+router.use("/bookmark-links", bookmarkLinkRouter);
+router.use("/categories", categoryRouter);
+router.use("/comments", commentRouter);
+router.use("/post-activities", postActivityRouter);
 router.use("/posts", postsRouter);
-router.use("/user-comment", userCommentRouter);
-router.use("/user-follower", userFollowerRouter);
+router.use("/user-comments", userCommentRouter);
+router.use("/user-followers", userFollowerRouter);
 // router.use("/user", userRouter);
 
 module.exports = router;

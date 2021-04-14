@@ -16,7 +16,7 @@ module.exports = {
 
       res.json({
         status: 200,
-        message: "Success",
+        message: "Get Categories Success",
         payload: categories,
       });
     } catch (err) {
@@ -44,7 +44,7 @@ module.exports = {
 
       res.json({
         status: 200,
-        message: "Success",
+        message: "Get Category Success",
         payload: category,
       });
     } catch (err) {
@@ -68,7 +68,7 @@ module.exports = {
       category = await newCategory.save();
       res.json({
         status: 200,
-        message: "Success",
+        message: "Create Category Success",
         payload: category,
       });
     } catch (err) {
@@ -83,18 +83,18 @@ module.exports = {
   updateCategory: async (req, res) => {
     try {
       const { id } = req.params;
-      const { title, status } = req.body;
       const category = await Category.updateOne(
         { _id: id },
         {
-          title,
-          status,
-          updateAt: new Date().getTime(),
+          $set: {
+            ...req.body,
+            updateAt: new Date().getTime(),
+          }
         }
       );
       res.json({
         status: 200,
-        message: "Success",
+        message: "Update Category Success",
         payload: category,
       });
     } catch (err) {
@@ -111,7 +111,7 @@ module.exports = {
     const category = await Category.remove({ _id: id });
     res.json({
       status: 200,
-      message: "Success",
+      message: "Delete Category Success",
       payload: category,
     });
   },

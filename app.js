@@ -1,6 +1,7 @@
 const express = require("express");
 const ejsMate = require("ejs-mate");
 const mongoose = require("mongoose");
+const bodyParser = require('body-parser');
 
 const app = express();
 
@@ -18,6 +19,12 @@ app.set("view engine", "ejs");
 app.set("views", "./views");
 
 app.engine("ejs", ejsMate);
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json
+app.use(bodyParser.json())
+
 app.use("/static", express.static("./static"));
 
 app.use(routes);
