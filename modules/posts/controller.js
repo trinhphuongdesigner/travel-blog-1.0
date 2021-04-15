@@ -1,4 +1,14 @@
-const { Post } = require("../../models");
+const { Post, PostActivity } = require("../../models");
+
+const updatePostActivities = async (userId, postId, activity) => {
+  const newPostActivity = new PostActivity({
+    userId,
+    activity,
+    timeStamp: new Date().getTime(),
+    postId,
+  });
+  newPostActivity.save();
+};
 
 module.exports = {
   getPosts: async (req, res) => {
@@ -54,15 +64,19 @@ module.exports = {
 
   createPost: async (req, res) => {
     try {
-      let newPost = new Post({
+      const newPost = new Post({
+        // eslint-disable-next-line node/no-unsupported-features/es-syntax
         ...req.body,
       });
-      post = await newPost.save();
-      //create post activity
+      const post = await newPost.save();
+      const { userId } = req.body;
+      // eslint-disable-next-line no-underscore-dangle
+      const postId = post._id;
+      updatePostActivities(userId, postId, "CREATE");
       res.json({
         status: 200,
         message: "Create Post Success",
-        payload: user,
+        payload: post,
       });
     } catch (err) {
       res.json({
@@ -80,14 +94,14 @@ module.exports = {
         { _id: id },
         {
           $set: {
+            // eslint-disable-next-line node/no-unsupported-features/es-syntax
             ...req.body,
           },
         }
       );
-      //create post activity
+      updatePostActivities(req.body.userId, id, "UPDATE");
       res.json({
         status: 200,
-        message: "Success",
         message: "Update Post Success",
         payload: post,
       });
@@ -104,8 +118,8 @@ module.exports = {
     try {
       const { id } = req.params;
       const post = await Post.remove({ _id: id });
+      updatePostActivities(req.body.userId, id, "DELETE");
 
-    //create post activity
       res.json({
         status: 200,
         message: "Delete Post Success",
@@ -119,5 +133,4 @@ module.exports = {
       });
     }
   },
-
 };
