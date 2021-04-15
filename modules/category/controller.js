@@ -89,7 +89,7 @@ module.exports = {
           $set: {
             ...req.body,
             updateAt: new Date().getTime(),
-          }
+          },
         }
       );
       res.json({
@@ -107,12 +107,20 @@ module.exports = {
   },
 
   deleteCategory: async (req, res) => {
-    const { id } = req.params;
-    const category = await Category.remove({ _id: id });
-    res.json({
-      status: 200,
-      message: "Delete Category Success",
-      payload: category,
-    });
+    try {
+      const { id } = req.params;
+      const category = await Category.remove({ _id: id });
+      res.json({
+        status: 200,
+        message: "Delete Category Success",
+        payload: category,
+      });
+    } catch (err) {
+      res.json({
+        status: 500,
+        message: "Internal server error",
+        payload: err,
+      });
+    }
   },
 };
