@@ -1,12 +1,14 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-const { userFollower, userFollowers, createUserFollower, updateUserFollower, deleteUserFollower } = require ('./controller');
+const {
+  getUserFollowers,
+  createUserFollower,
+  deleteUserFollower,
+} = require("./controller");
 
-router.get ('/',userFollower);
-router.get ('/:id',userFollowers);
-router.get ('/create',createUserFollower);
-router.get ('/update',updateUserFollower);
-router.get ('/delete',deleteUserFollower);
+router.get("/", getUserFollowers);
+router.post("/", createUserFollower);
+router.delete("/:id", deleteUserFollower);
 
-module.exports = router
+module.exports = router;
