@@ -1,4 +1,4 @@
-const {user_comment} = require ('../../models');
+const { user_comment } = require("../../models");
 
 module.exports = {
     getUserComment: ()=> {},
