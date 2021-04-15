@@ -22,7 +22,7 @@ module.exports = {
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal server error",
+        message: "Internal Server Error",
         payload: err,
       });
     }
@@ -50,7 +50,7 @@ module.exports = {
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal server error",
+        message: "Internal Server Error",
         payload: err,
       });
     }
@@ -74,7 +74,7 @@ module.exports = {
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal server error",
+        message: "Internal Server Error",
         payload: err,
       });
     }
@@ -100,7 +100,7 @@ module.exports = {
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal server error",
+        message: "Internal Server Error",
         payload: err,
       });
     }
@@ -118,7 +118,7 @@ module.exports = {
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal server error",
+        message: "Internal Server Error",
         payload: err,
       });
     }

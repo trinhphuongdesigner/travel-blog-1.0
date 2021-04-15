@@ -21,7 +21,7 @@ module.exports = {
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal server error",
+        message: "Internal Server Error",
         payload: err,
       });
     }
@@ -46,7 +46,7 @@ module.exports = {
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal server error",
+        message: "Internal Server Error",
         payload: err,
       });
     }
@@ -68,7 +68,7 @@ module.exports = {
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal server error",
+        message: "Internal Server Error",
         payload: err,
       });
     }
@@ -76,7 +76,7 @@ module.exports = {
 
   updateUser: async (req, res) => {
     try {
-      const { id } = req.params; //Lấy Id từ URL
+      const { id } = req.params;
       const user = await User.updateOne(
         { _id: id },
         {
@@ -95,7 +95,7 @@ module.exports = {
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal server error",
+        message: "Internal Server Error",
         payload: err,
       });
     }
@@ -114,7 +114,7 @@ module.exports = {
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal server error",
+        message: "Internal Server Error",
         payload: err,
       });
     }
