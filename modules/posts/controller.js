@@ -65,7 +65,6 @@ module.exports = {
   createPost: async (req, res) => {
     try {
       const newPost = new Post({
-        // eslint-disable-next-line node/no-unsupported-features/es-syntax
         ...req.body,
       });
       const post = await newPost.save();
@@ -94,7 +93,6 @@ module.exports = {
         { _id: id },
         {
           $set: {
-            // eslint-disable-next-line node/no-unsupported-features/es-syntax
             ...req.body,
           },
         }

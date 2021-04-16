@@ -43,10 +43,10 @@ module.exports = {
   createUserFollower: async (req, res) => {
     try {
       // const { followingId, followerId } = req.body;
-      let newFollow = new UserFollower({
+      const newFollow = new UserFollower({
         ...req.body
       });
-      follow = await newFollow.save();
+      const follow = await newFollow.save();
       res.json({
         status: 200,
         message: "Follower Success",

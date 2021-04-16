@@ -59,13 +59,13 @@ module.exports = {
   createCategory: async (req, res) => {
     try {
       const { name, status } = req.body;
-      let newCategory = new Category({
+      const newCategory = new Category({
         name,
         status,
         createdAt: new Date().getTime(),
         updateAt: new Date().getTime(),
       });
-      category = await newCategory.save();
+      const category = await newCategory.save();
       res.json({
         status: 200,
         message: "Create Category Success",

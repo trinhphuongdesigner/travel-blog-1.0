@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 
 const postSchema = new Schema({
   categoryId: Schema.Types.ObjectId,
@@ -13,11 +14,11 @@ const postSchema = new Schema({
   subTitle: String,
   status: {
     type: String,
-    default: 'PENDING', // PENDING | ACTIVE | UPDATE | CLOSE
+    default: "PENDING", // PENDING | ACTIVE | UPDATE | CLOSE
   },
   type: {
     type: String,
-    default: 'NORMAL', // NORMAL | ADVANCED
+    default: "NORMAL", // NORMAL | ADVANCED
   },
   content: {
     type: String,
@@ -43,13 +44,13 @@ const postSchema = new Schema({
     subTitle: String,
     type: {
       type: String,
-      default: 'PLAY', //PLAY | EAT | STAY
+      default: "PLAY", // PLAY | EAT | STAY
     },
     description: String,
     address: String,
     price: Number,
     transportation: Array,
-    totalTime: Number, //Hours
+    totalTime: Number, // Hours
     people: Number,
     howToGo: String,
     activeTime: Array,
