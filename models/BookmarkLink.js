@@ -1,5 +1,6 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
+
 
 const bookmarkLinkSchema = new Schema({
   bookmarkFolderId: Schema.Types.ObjectId,
@@ -10,4 +11,4 @@ const bookmarkLinkSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("bookmark_links", bookmarkLinkSchema);
+module.exports = mongoose.model('bookmark_links', bookmarkLinkSchema);

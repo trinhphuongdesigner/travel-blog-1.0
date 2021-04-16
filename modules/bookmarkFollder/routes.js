@@ -1,16 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
-const {getbookmarkFolder,getbookmarkFolders,createbookmarkFolder,updatebookmarkFolder,deletebookmarkFolder} = require('./controller');
+const {getBookmarkFolders,createBookmarkFolder,updatebookmarkFolder,deletebookmarkFolder} = require('./controller');
 
-router.get('/',getbookmarkFolders);
+router.get('/', getBookmarkFolders);
 
-router.get('/:id',getbookmarkFolder);
+router.post('/', createBookmarkFolder);
 
-router.get('/create',createbookmarkFolder);
+router.put('/:id', updatebookmarkFolder);
 
-router.get('/update',updatebookmarkFolder);
-
-router.get('/delete',deletebookmarkFolder)
+router.delete('/:id', deletebookmarkFolder)
 
 module.exports = router;

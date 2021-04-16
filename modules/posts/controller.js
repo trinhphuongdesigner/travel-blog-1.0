@@ -54,15 +54,15 @@ module.exports = {
 
   createPost: async (req, res) => {
     try {
-      let newPost = new Post({
+      const newPost = new Post({
         ...req.body,
       });
-      post = await newPost.save();
-      //create post activity
+      const post = await newPost.save();
+      // create post activity
       res.json({
         status: 200,
         message: "Create Post Success",
-        payload: user,
+        payload: post,
       });
     } catch (err) {
       res.json({
@@ -84,10 +84,9 @@ module.exports = {
           },
         }
       );
-      //create post activity
+      // create post activity
       res.json({
         status: 200,
-        message: "Success",
         message: "Update Post Success",
         payload: post,
       });
@@ -105,7 +104,7 @@ module.exports = {
       const { id } = req.params;
       const post = await Post.remove({ _id: id });
 
-    //create post activity
+    // create post activity
       res.json({
         status: 200,
         message: "Delete Post Success",

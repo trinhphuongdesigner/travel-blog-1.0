@@ -1,4 +1,4 @@
-const BookmarkFolder = require("./BookmarkFolder");
+const BookmarkFolder = require('./BookmarkFolder');
 const BookmarkLink = require("./BookmarkLink");
 const Category = require("./Category");
 const Comment = require("./Comment");

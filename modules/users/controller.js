@@ -54,12 +54,12 @@ module.exports = {
 
   createUser: async (req, res) => {
     try {
-      let newUser = new User({
+      const newUser = new User({
         ...req.body,
         createdAt: new Date().getTime(),
         updateAt: new Date().getTime(),
       });
-      user = await newUser.save();
+      const user = await newUser.save();
       res.json({
         status: 200,
         message: "Create User Success",
@@ -88,7 +88,6 @@ module.exports = {
       );
       res.json({
         status: 200,
-        message: "Success",
         message: "Update User Success",
         payload: user,
       });
