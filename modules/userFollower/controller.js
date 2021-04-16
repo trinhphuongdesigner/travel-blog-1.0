@@ -4,20 +4,20 @@ module.exports = {
   getUserFollowers: async (req, res) => {
     try {
       const { userId, type } = req.body;
-      let follower = null;
+      let result = null;
       if (type === "follower") {
         // lấy danh sách những người mình theo dõi
-        follower = await UserFollower.find({ followerId: userId })
+        result = await UserFollower.find({ followerId: userId })
           .select()
           .lean();
       } else {
         // lấy danh sách những người theo dõi mình
-        follower = await UserFollower.find({ followingId: userId })
+        result = await UserFollower.find({ followingId: userId })
           .select()
           .lean();
       }
 
-      if (!follower) {
+      if (!result) {
         res.json({
           status: 404,
           message: "Not found",
@@ -29,7 +29,7 @@ module.exports = {
       res.json({
         status: 200,
         message: "Get User Follower Success",
-        payload: follower,
+        payload: result,
       });
     } catch (err) {
       res.json({
@@ -46,11 +46,11 @@ module.exports = {
       const newFollow = new UserFollower({
         ...req.body
       });
-      const follow = await newFollow.save();
+      const result = await newFollow.save();
       res.json({
         status: 200,
         message: "Follower Success",
-        payload: follow,
+        payload: result,
       });
     } catch (err) {
       res.json({
@@ -65,11 +65,11 @@ module.exports = {
   deleteUserFollower: async (req, res) => {
     try {
       const { id } = req.params;
-      const follow = await UserFollower.remove({ _id: id });
+      const result = await UserFollower.remove({ _id: id });
       res.json({
         status: 200,
         message: "Unfollow Success",
-        payload: follow,
+        payload: result,
       });
     } catch (err) {
       res.json({

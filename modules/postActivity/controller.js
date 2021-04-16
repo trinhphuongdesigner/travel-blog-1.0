@@ -3,8 +3,8 @@ const { PostActivity } = require("../../models");
 module.exports = {
   getActivities: async (req, res) => {
     try {
-      const postActivities = await PostActivity.find().select().lean();
-      if (!postActivities) {
+      const result = await PostActivity.find().select().lean();
+      if (!result) {
         res.json({
           status: 404,
           message: "Not found",
@@ -15,7 +15,7 @@ module.exports = {
       res.json({
         status: 200,
         message: "Get Post Activities Success",
-        payload: postActivities,
+        payload: result,
       });
     } catch (err) {
       res.json({

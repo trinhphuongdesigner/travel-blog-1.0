@@ -13,8 +13,8 @@ const updatePostActivities = async (userId, postId, activity) => {
 module.exports = {
   getPosts: async (req, res) => {
     try {
-      const post = await Post.find().select().lean();
-      if (!post) {
+      const result = await Post.find().select().lean();
+      if (!result) {
         res.json({
           status: 404,
           message: "Not found",
@@ -25,7 +25,7 @@ module.exports = {
       res.json({
         status: 200,
         message: "Get Posts Success",
-        payload: post,
+        payload: result,
       });
     } catch (err) {
       res.json({
@@ -39,8 +39,8 @@ module.exports = {
   getPost: async (req, res) => {
     try {
       const { id } = req.params;
-      const posts = await Post.findById(id).lean();
-      if (!posts) {
+      const result = await Post.findById(id).lean();
+      if (!result) {
         res.json({
           status: 404,
           message: "Not found",
@@ -51,7 +51,7 @@ module.exports = {
       res.json({
         status: 200,
         message: "Get Post Success",
-        payload: posts,
+        payload: result,
       });
     } catch (err) {
       res.json({
@@ -67,15 +67,15 @@ module.exports = {
       const newPost = new Post({
         ...req.body,
       });
-      const post = await newPost.save();
+      const result = await newPost.save();
       const { userId } = req.body;
       // eslint-disable-next-line no-underscore-dangle
-      const postId = post._id;
+      const postId = result._id;
       updatePostActivities(userId, postId, "CREATE");
       res.json({
         status: 200,
         message: "Create Post Success",
-        payload: post,
+        payload: result,
       });
     } catch (err) {
       res.json({
@@ -89,7 +89,7 @@ module.exports = {
   updatePost: async (req, res) => {
     try {
       const { id } = req.params;
-      const post = await Post.updateOne(
+      const result = await Post.updateOne(
         { _id: id },
         {
           $set: {
@@ -101,7 +101,7 @@ module.exports = {
       res.json({
         status: 200,
         message: "Update Post Success",
-        payload: post,
+        payload: result,
       });
     } catch (err) {
       res.json({
@@ -115,13 +115,13 @@ module.exports = {
   deletePost: async (req, res) => {
     try {
       const { id } = req.params;
-      const post = await Post.remove({ _id: id });
+      const result = await Post.remove({ _id: id });
       updatePostActivities(req.body.userId, id, "DELETE");
 
       res.json({
         status: 200,
         message: "Delete Post Success",
-        payload: post,
+        payload: result,
       });
     } catch (err) {
       res.json({

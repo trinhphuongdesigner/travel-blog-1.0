@@ -4,8 +4,8 @@ module.exports = {
   getUser: async (req, res) => {
     try {
       const { id } = req.params;
-      const users = await User.findById(id).lean();
-      if (!users) {
+      const result = await User.findById(id).lean();
+      if (!result) {
         res.json({
           status: 404,
           message: "Not found",
@@ -16,7 +16,7 @@ module.exports = {
       res.json({
         status: 200,
         message: "Get User Success",
-        payload: users,
+        payload: result,
       });
     } catch (err) {
       res.json({
@@ -29,8 +29,8 @@ module.exports = {
 
   getUsers: async (req, res) => {
     try {
-      const user = await User.find().select().lean();
-      if (!user) {
+      const result = await User.find().select().lean();
+      if (!result) {
         res.json({
           status: 404,
           message: "Not found",
@@ -41,7 +41,7 @@ module.exports = {
       res.json({
         status: 200,
         message: "GetUsers Success",
-        payload: user,
+        payload: result,
       });
     } catch (err) {
       res.json({
@@ -59,11 +59,11 @@ module.exports = {
         createdAt: new Date().getTime(),
         updateAt: new Date().getTime(),
       });
-      const user = await newUser.save();
+      const result = await newUser.save();
       res.json({
         status: 200,
         message: "Create User Success",
-        payload: user,
+        payload: result,
       });
     } catch (err) {
       res.json({
@@ -77,7 +77,7 @@ module.exports = {
   updateUser: async (req, res) => {
     try {
       const { id } = req.params;
-      const user = await User.updateOne(
+      const result = await User.updateOne(
         { _id: id },
         {
           $set: {
@@ -89,7 +89,7 @@ module.exports = {
       res.json({
         status: 200,
         message: "Update User Success",
-        payload: user,
+        payload: result,
       });
     } catch (err) {
       res.json({
@@ -103,12 +103,12 @@ module.exports = {
   deleteUser: async (req, res) => {
     try {
       const { id } = req.params;
-      const user = await User.remove({ _id: id });
+      const result = await User.remove({ _id: id });
 
       res.json({
         status: 200,
         message: "DeleteUser Success",
-        payload: user,
+        payload: result,
       });
     } catch (err) {
       res.json({

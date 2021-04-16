@@ -8,7 +8,6 @@ const categoryRouter = require("./category/routes");
 const commentRouter = require("./comment/routes");
 const postActivityRouter = require("./postActivity/routes");
 const postsRouter = require("./posts/routes");
-const userCommentRouter = require("./userComment/routes");
 const userFollowerRouter = require("./userFollower/routes");
 const userRouter = require('./users/routes');
 
@@ -18,7 +17,6 @@ router.use("/categories", categoryRouter);
 router.use("/comments", commentRouter);
 router.use("/post-activities", postActivityRouter);
 router.use("/posts", postsRouter);
-router.use("/user-comments", userCommentRouter);
 router.use("/user-followers", userFollowerRouter);
 router.use("/user", userRouter);
 

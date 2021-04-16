@@ -28,7 +28,10 @@ const userSchema = new Schema({
     web: String,
     other: String,
   },
-  bookmarkFolderId: Schema.Types.ObjectId,
+  bookmarkFolderId: {
+    type: Schema.Types.ObjectId,
+    require: true,
+  },
   createdAt: {
     type: Date,
     default: new Date(),
