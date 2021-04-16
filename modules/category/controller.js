@@ -1,4 +1,4 @@
-const { Category } = require("../../models");
+const { Category } = require('../../models');
 
 module.exports = {
   getCategories: async (req, res) => {
@@ -8,7 +8,7 @@ module.exports = {
       if (!result) {
         res.json({
           status: 404,
-          message: "Not found",
+          message: 'Not found',
           payload: null,
         });
         return;
@@ -16,13 +16,13 @@ module.exports = {
 
       res.json({
         status: 200,
-        message: "Get Categories Success",
+        message: 'Get Categories Success',
         payload: result,
       });
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal Server Error",
+        message: 'Internal Server Error',
         payload: err,
       });
     }
@@ -36,7 +36,7 @@ module.exports = {
       if (!result) {
         res.json({
           status: 404,
-          message: "Not found",
+          message: 'Not found',
           payload: null,
         });
         return;
@@ -44,13 +44,13 @@ module.exports = {
 
       res.json({
         status: 200,
-        message: "Get Category Success",
+        message: 'Get Category Success',
         payload: result,
       });
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal Server Error",
+        message: 'Internal Server Error',
         payload: err,
       });
     }
@@ -68,13 +68,13 @@ module.exports = {
       const result = await newCategory.save();
       res.json({
         status: 200,
-        message: "Create Category Success",
+        message: 'Create Category Success',
         payload: result,
       });
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal Server Error",
+        message: 'Internal Server Error',
         payload: err,
       });
     }
@@ -94,13 +94,13 @@ module.exports = {
       );
       res.json({
         status: 200,
-        message: "Update Category Success",
+        message: 'Update Category Success',
         payload: result,
       });
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal Server Error",
+        message: 'Internal Server Error',
         payload: err,
       });
     }
@@ -112,13 +112,13 @@ module.exports = {
       const result = await Category.remove({ _id: id });
       res.json({
         status: 200,
-        message: "Delete Category Success",
+        message: 'Delete Category Success',
         payload: result,
       });
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal Server Error",
+        message: 'Internal Server Error',
         payload: err,
       });
     }

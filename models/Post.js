@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
@@ -20,11 +20,11 @@ const postSchema = new Schema({
   subTitle: String,
   status: {
     type: String,
-    default: "PENDING", // PENDING | ACTIVE | UPDATE | CLOSE
+    default: 'PENDING', // PENDING | ACTIVE | UPDATE | CLOSE
   },
   type: {
     type: String,
-    default: "NORMAL", // NORMAL | ADVANCED
+    default: 'NORMAL', // NORMAL | ADVANCED
   },
   content: {
     type: String,
@@ -50,7 +50,7 @@ const postSchema = new Schema({
     subTitle: String,
     type: {
       type: String,
-      default: "PLAY", // PLAY | EAT | STAY
+      default: 'PLAY', // PLAY | EAT | STAY
     },
     description: String,
     address: String,
@@ -64,4 +64,4 @@ const postSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("posts", postSchema);
+module.exports = mongoose.model('posts', postSchema);

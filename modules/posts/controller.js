@@ -1,4 +1,4 @@
-const { Post, PostActivity } = require("../../models");
+const { Post, PostActivity } = require('../../models');
 
 const updatePostActivities = async (userId, postId, activity) => {
   const newPostActivity = new PostActivity({
@@ -17,20 +17,20 @@ module.exports = {
       if (!result) {
         res.json({
           status: 404,
-          message: "Not found",
+          message: 'Not found',
           payload: null,
         });
         return;
       }
       res.json({
         status: 200,
-        message: "Get Posts Success",
+        message: 'Get Posts Success',
         payload: result,
       });
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal Server Error",
+        message: 'Internal Server Error',
         payload: err,
       });
     }
@@ -43,20 +43,20 @@ module.exports = {
       if (!result) {
         res.json({
           status: 404,
-          message: "Not found",
+          message: 'Not found',
           payload: null,
         });
         return;
       }
       res.json({
         status: 200,
-        message: "Get Post Success",
+        message: 'Get Post Success',
         payload: result,
       });
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal Server Error",
+        message: 'Internal Server Error',
         payload: err,
       });
     }
@@ -71,16 +71,16 @@ module.exports = {
       const { userId } = req.body;
       // eslint-disable-next-line no-underscore-dangle
       const postId = result._id;
-      updatePostActivities(userId, postId, "CREATE");
+      updatePostActivities(userId, postId, 'CREATE');
       res.json({
         status: 200,
-        message: "Create Post Success",
+        message: 'Create Post Success',
         payload: result,
       });
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal Server Error",
+        message: 'Internal Server Error',
         payload: err,
       });
     }
@@ -97,16 +97,16 @@ module.exports = {
           },
         }
       );
-      updatePostActivities(req.body.userId, id, "UPDATE");
+      updatePostActivities(req.body.userId, id, 'UPDATE');
       res.json({
         status: 200,
-        message: "Update Post Success",
+        message: 'Update Post Success',
         payload: result,
       });
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal Server Error",
+        message: 'Internal Server Error',
         payload: err,
       });
     }
@@ -116,17 +116,17 @@ module.exports = {
     try {
       const { id } = req.params;
       const result = await Post.remove({ _id: id });
-      updatePostActivities(req.body.userId, id, "DELETE");
+      updatePostActivities(req.body.userId, id, 'DELETE');
 
       res.json({
         status: 200,
-        message: "Delete Post Success",
+        message: 'Delete Post Success',
         payload: result,
       });
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal Server Error",
+        message: 'Internal Server Error',
         payload: err,
       });
     }

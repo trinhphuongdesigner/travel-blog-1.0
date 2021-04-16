@@ -1,4 +1,4 @@
-const { Comment } = require("../../models");
+const { Comment } = require('../../models');
 
 module.exports = {
   getComment: async (req, res) => {
@@ -8,20 +8,20 @@ module.exports = {
       if (!result) {
         res.json({
           status: 404,
-          message: "Not found",
+          message: 'Not found',
           payload: null,
         });
         return;
       }
       res.json({
         status: 200,
-        message: "Get Comment Success",
+        message: 'Get Comment Success',
         payload: result,
       });
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal Server Error",
+        message: 'Internal Server Error',
         payload: err,
       });
     }
@@ -33,20 +33,20 @@ module.exports = {
       if (!result) {
         res.json({
           status: 404,
-          message: "Not found",
+          message: 'Not found',
           payload: null,
         });
         return;
       }
       res.json({
         status: 200,
-        message: "Get Comments Success",
+        message: 'Get Comments Success',
         payload: result,
       });
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal Server Error",
+        message: 'Internal Server Error',
         payload: err,
       });
     }
@@ -60,13 +60,13 @@ module.exports = {
       const result = await newComment.save();
       res.json({
         status: 200,
-        message: "Create Comment Success",
+        message: 'Create Comment Success',
         payload: result,
       });
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal Server Error",
+        message: 'Internal Server Error',
         payload: err,
       });
     }
@@ -85,13 +85,13 @@ module.exports = {
       );
       res.json({
         status: 200,
-        message: "Update Comment Success",
+        message: 'Update Comment Success',
         payload: result,
       });
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal Server Error",
+        message: 'Internal Server Error',
         payload: err,
       });
     }
@@ -104,13 +104,13 @@ module.exports = {
 
       res.json({
         status: 200,
-        message: "Delete Comment Success",
+        message: 'Delete Comment Success',
         payload: result,
       });
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal Server Error",
+        message: 'Internal Server Error',
         payload: err,
       });
     }

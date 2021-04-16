@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
@@ -17,4 +17,4 @@ const bookmarkLinkSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("bookmark_links", bookmarkLinkSchema);
+module.exports = mongoose.model('bookmark_links', bookmarkLinkSchema);

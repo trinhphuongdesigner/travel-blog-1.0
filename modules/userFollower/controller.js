@@ -1,11 +1,11 @@
-const { UserFollower } = require("../../models");
+const { UserFollower } = require('../../models');
 
 module.exports = {
   getUserFollowers: async (req, res) => {
     try {
       const { userId, type } = req.body;
       let result = null;
-      if (type === "follower") {
+      if (type === 'follower') {
         // lấy danh sách những người mình theo dõi
         result = await UserFollower.find({ followerId: userId })
           .select()
@@ -20,7 +20,7 @@ module.exports = {
       if (!result) {
         res.json({
           status: 404,
-          message: "Not found",
+          message: 'Not found',
           payload: null,
         });
         return;
@@ -28,13 +28,13 @@ module.exports = {
 
       res.json({
         status: 200,
-        message: "Get User Follower Success",
+        message: 'Get User Follower Success',
         payload: result,
       });
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal Server Error",
+        message: 'Internal Server Error',
         payload: err,
       });
     }
@@ -49,13 +49,13 @@ module.exports = {
       const result = await newFollow.save();
       res.json({
         status: 200,
-        message: "Follower Success",
+        message: 'Follower Success',
         payload: result,
       });
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal Server Error",
+        message: 'Internal Server Error',
         payload: err,
       });
     }
@@ -68,13 +68,13 @@ module.exports = {
       const result = await UserFollower.remove({ _id: id });
       res.json({
         status: 200,
-        message: "Unfollow Success",
+        message: 'Unfollow Success',
         payload: result,
       });
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal Server Error",
+        message: 'Internal Server Error',
         payload: err,
       });
     }

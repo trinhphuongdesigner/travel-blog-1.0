@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
@@ -15,4 +15,4 @@ const bookmarkFolderSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("bookmark_folders", bookmarkFolderSchema);
+module.exports = mongoose.model('bookmark_folders', bookmarkFolderSchema);

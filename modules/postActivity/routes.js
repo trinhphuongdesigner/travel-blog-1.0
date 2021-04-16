@@ -1,9 +1,9 @@
-const express = require("express");
+const express = require('express');
 
 const router = express.Router();
 
-const { getActivities } = require("./controller");
+const { getActivities } = require('./controller');
 
-router.get("/", getActivities);
+router.get('/', getActivities);
 
 module.exports = router;

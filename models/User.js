@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
@@ -6,17 +6,17 @@ const userSchema = new Schema({
   firstName: {
     type: String,
     trim: true,
-    default: "Anonymous",
+    default: 'Anonymous',
   },
   lastName: {
     type: String,
     trim: true,
-    default: "",
+    default: '',
   },
   birthday: Date,
   role: {
     type: String,
-    default: "CONTRIBUTOR", // ADMIN | MANAGER | CONTRIBUTOR
+    default: 'CONTRIBUTOR', // ADMIN | MANAGER | CONTRIBUTOR
   },
   email: String,
   phone: String,
@@ -42,4 +42,4 @@ const userSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("users", userSchema);
+module.exports = mongoose.model('users', userSchema);

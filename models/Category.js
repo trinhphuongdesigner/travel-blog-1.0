@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
@@ -11,7 +11,7 @@ const categorySchema = new Schema({
   },
   status: {
     type: String,
-    default: "ACTIVE", // ACTIVE | INACTIVE
+    default: 'ACTIVE', // ACTIVE | INACTIVE
     trim: true,
   },
   createdAt: {
@@ -24,4 +24,4 @@ const categorySchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("categories", categorySchema);
+module.exports = mongoose.model('categories', categorySchema);
