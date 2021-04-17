@@ -5,11 +5,11 @@ const { Schema } = mongoose;
 const postActivitySchema = new Schema({
   postId: {
     type: Schema.Types.ObjectId,
-    require: true,
+    required: true,
   },
   userId: {
     type: Schema.Types.ObjectId,
-    require: true,
+    required: true,
   },
   timeStamp: {
     type: Date,
@@ -17,7 +17,7 @@ const postActivitySchema = new Schema({
   },
   activity: {
     type: String,
-    require: true, // C | U | D
+    required: true, // C | U | D
   },
 });
 

@@ -2,6 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
+const login = require('./auth/router');
 const bookmarkFolderRouter = require('./bookmarkFollder/routes');
 const bookmarkLinkRouter = require('./bookmarkLink/routes');
 const categoryRouter = require('./category/routes');
@@ -11,6 +12,7 @@ const postsRouter = require('./posts/routes');
 const userFollowerRouter = require('./userFollower/routes');
 const userRouter = require('./users/routes');
 
+router.use('/auth', login);
 router.use('/bookmark-folders', bookmarkFolderRouter);
 router.use('/bookmark-links', bookmarkLinkRouter);
 router.use('/categories', categoryRouter);
@@ -18,6 +20,6 @@ router.use('/comments', commentRouter);
 router.use('/post-activities', postActivityRouter);
 router.use('/posts', postsRouter);
 router.use('/user-followers', userFollowerRouter);
-router.use('/user', userRouter);
+router.use('/users', userRouter);
 
 module.exports = router;

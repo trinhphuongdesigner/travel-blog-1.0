@@ -5,11 +5,11 @@ const { Schema } = mongoose;
 const postSchema = new Schema({
   categoryId: {
     type: Schema.Types.ObjectId,
-    require: true,
+    required: true,
   },
   userId: {
     type: Schema.Types.ObjectId,
-    require: true,
+    required: true,
   },
   coverImage: String,
   title: {

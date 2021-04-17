@@ -54,6 +54,15 @@ module.exports = {
 
   createUser: async (req, res) => {
     try {
+      const { email } = req.body;
+      const checkedEmail = await User.findOne({ email });
+      if (checkedEmail) {
+        res.json({
+          status: 500,
+          message: 'Account is Existed',
+        });
+        return;
+      }
       const newUser = new User({
         ...req.body,
         createdAt: new Date().getTime(),
@@ -82,7 +91,6 @@ module.exports = {
         {
           $set: {
             ...req.body,
-            updateAt: new Date().getTime(),
           },
         },
       );

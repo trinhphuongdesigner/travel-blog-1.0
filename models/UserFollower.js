@@ -1,16 +1,18 @@
 const mongoose = require('mongoose');
 
-const { Schema } = mongoose.Types;
+const { Schema } = mongoose;
 
 const userFollowerSchema = new Schema({
   followerId: {
     type: Schema.Types.ObjectId,
-    require: true,
+    required: true,
   },
   followingId: {
     type: Schema.Types.ObjectId,
-    require: true,
+    required: true,
   },
+}, {
+  timestamps: true,
 });
 
 module.exports = mongoose.model('user_followers', userFollowerSchema);

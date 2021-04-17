@@ -62,8 +62,6 @@ module.exports = {
       const newCategory = new Category({
         name,
         status,
-        createdAt: new Date().getTime(),
-        updateAt: new Date().getTime(),
       });
       const result = await newCategory.save();
       res.json({
@@ -88,7 +86,6 @@ module.exports = {
         {
           $set: {
             ...req.body,
-            updateAt: new Date().getTime(),
           },
         },
       );
