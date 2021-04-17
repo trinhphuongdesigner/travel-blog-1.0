@@ -42,9 +42,8 @@ module.exports = {
 
   createUserFollower: async (req, res) => {
     try {
-      // const { followingId, followerId } = req.body;
       const newFollow = new UserFollower({
-        ...req.body
+        ...req.body,
       });
       const result = await newFollow.save();
       res.json({
@@ -59,9 +58,8 @@ module.exports = {
         payload: err,
       });
     }
-
   },
-  
+
   deleteUserFollower: async (req, res) => {
     try {
       const { id } = req.params;
