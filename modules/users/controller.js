@@ -1,4 +1,5 @@
-const { User } = require("../../models/index");
+/* eslint-disable node/no-unsupported-features/es-syntax */
+const { User } = require('../../models/index');
 
 module.exports = {
   getUser: async (req, res) => {
@@ -8,20 +9,20 @@ module.exports = {
       if (!users) {
         res.json({
           status: 404,
-          message: "Not found",
+          message: 'Not found',
           payload: null,
         });
         return;
       }
       res.json({
         status: 200,
-        message: "Get User Success",
+        message: 'Get User Success',
         payload: users,
       });
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal Server Error",
+        message: 'Internal Server Error',
         payload: err,
       });
     }
@@ -33,20 +34,20 @@ module.exports = {
       if (!user) {
         res.json({
           status: 404,
-          message: "Not found",
+          message: 'Not found',
           payload: null,
         });
         return;
       }
       res.json({
         status: 200,
-        message: "GetUsers Success",
+        message: 'GetUsers Success',
         payload: user,
       });
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal Server Error",
+        message: 'Internal Server Error',
         payload: err,
       });
     }
@@ -62,13 +63,13 @@ module.exports = {
       const user = await newUser.save();
       res.json({
         status: 200,
-        message: "Create User Success",
+        message: 'Create User Success',
         payload: user,
       });
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal Server Error",
+        message: 'Internal Server Error',
         payload: err,
       });
     }
@@ -88,13 +89,13 @@ module.exports = {
       );
       res.json({
         status: 200,
-        message: "Update User Success",
+        message: 'Update User Success',
         payload: user,
       });
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal Server Error",
+        message: 'Internal Server Error',
         payload: err,
       });
     }
@@ -107,13 +108,13 @@ module.exports = {
 
       res.json({
         status: 200,
-        message: "DeleteUser Success",
+        message: 'DeleteUser Success',
         payload: user,
       });
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal Server Error",
+        message: 'Internal Server Error',
         payload: err,
       });
     }
