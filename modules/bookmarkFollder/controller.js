@@ -7,20 +7,20 @@ module.exports = {
       if (!result) {
         res.json({
           status: 404,
-          message: "Not found",
+          message: 'Not found',
           payload: null,
         });
         return;
       }
       res.json({
         status: 200,
-        message: "Get Bookmark Folder Success",
+        message: 'Get Bookmark Folder Success',
         payload: result,
       });
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal Server Error",
+        message: 'Internal Server Error',
         payload: err,
       });
     }
@@ -32,17 +32,17 @@ module.exports = {
       const result = await newbookmarkfolder.save();
       res.json({
         status: 200,
-        message: "Create Bookmark Folder success",
+        message: 'Create Bookmark Folder success',
         payload: result,
       });
     } catch (err) {
       res.json({
         status: 500,
-        message: "",
-        payload: err
+        message: '',
+        payload: err,
       });
-      }
-    },
+    }
+  },
 
   updatebookmarkFolder: async (req, res) => {
     try {
@@ -53,20 +53,20 @@ module.exports = {
           $set: {
             ...req.body,
           },
-        }
+        },
       );
       res.json({
         status: 200,
-        message: "Update Bookmark Folder Success",
+        message: 'Update Bookmark Folder Success',
         payload: result,
       });
-    } catch (err){
+    } catch (err) {
       res.json({
         status: 500,
-        message: "Internal Server Error",
+        message: 'Internal Server Error',
         payload: err,
-      })
-      }
+      });
+    }
   },
 
   deletebookmarkFolder: async (req, res) => {
@@ -75,15 +75,15 @@ module.exports = {
       const bookmarkfolder = await BookmarkFolder.remove({ _id: id });
       res.json({
         status: 200,
-        message: "Delete Bookmark Folder Success",
+        message: 'Delete Bookmark Folder Success',
         payload: bookmarkfolder,
-      })
-    } catch (err){
+      });
+    } catch (err) {
       res.json({
         status: 500,
-        message: "Internal Server Error",
+        message: 'Internal Server Error',
         payload: err,
-      })
+      });
     }
-    },
-}
+  },
+};
