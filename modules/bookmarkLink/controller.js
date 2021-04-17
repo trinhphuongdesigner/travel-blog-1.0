@@ -5,8 +5,8 @@ module.exports = {
 
   getBookmarkLinks: async (req, res) => {
     try {
-      const bookmarklink = await BookmarkLink.find().select().lean();
-      if (!bookmarklink) {
+      const result = await BookmarkLink.find().select().lean();
+      if (!result) {
         res.json({
           status: 404,
           message: "Not found",
@@ -16,8 +16,8 @@ module.exports = {
       }
       res.json({
         status: 200,
-        message: "Get BookmarkLink Success",
-        payload: bookmarklink,
+        message: "Get Bookmark Link Success",
+        payload: result,
       });
     } catch (err) {
       res.json({
@@ -30,11 +30,11 @@ module.exports = {
   createBookmarkLink: async (req, res) => {
     try {
       const newbookmarklink = new BookmarkLink({ ...req.body });
-      const bookmarklink = await newbookmarklink.save();
+      const result = await newbookmarklink.save();
       res.json({
         status: 200,
-        message: "Create BookmarkLink success",
-        payload: bookmarklink,
+        message: "Create Bookmark Link success",
+        payload: result,
       });
     } catch (err) {
         res.json({
@@ -47,7 +47,7 @@ module.exports = {
   updateBookmarkLink: async (req, res) => {
     try {
       const { id } = req.params; // Lay ID tu URL
-      const bookmarklink = await BookmarkLink.updateOne(
+      const result = await BookmarkLink.updateOne(
         { _id: id },
         {
           $set: {
@@ -57,8 +57,8 @@ module.exports = {
       );
       res.json({
         status: 200,
-        message: "UpdatebookmarkLink Success",
-        payload: bookmarklink,
+        message: "Update Bookmark Link Success",
+        payload: result,
       });
     } catch (err) {
       res.json({
@@ -71,11 +71,11 @@ module.exports = {
   deleteBookmarkLink: async (req, res) => {
     try {
       const { id } = req.params;
-      const bookmarklink = await BookmarkLink.remove({ _id: id });
+      const result = await BookmarkLink.remove({ _id: id });
       res.json({
         status: 200,
-        message: "Delete BookmarkLink Success",
-        payload: bookmarklink,
+        message: "Delete Bookmark Link Success",
+        payload: result,
       });
     } catch (err) {
         res.json({

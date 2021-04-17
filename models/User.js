@@ -1,21 +1,22 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+
+const { Schema } = mongoose;
 
 const userSchema = new Schema({
   firstName: {
     type: String,
     trim: true,
-    default: "Anonymous",
+    default: 'Anonymous',
   },
   lastName: {
     type: String,
     trim: true,
-    default: "",
+    default: '',
   },
   birthday: Date,
   role: {
     type: String,
-    default: "CONTRIBUTOR", // ADMIN | MANAGER | CONTRIBUTOR
+    default: 'CONTRIBUTOR', // ADMIN | MANAGER | CONTRIBUTOR
   },
   email: String,
   phone: String,
@@ -27,7 +28,10 @@ const userSchema = new Schema({
     web: String,
     other: String,
   },
-  bookmarkFolderId: Schema.Types.ObjectId,
+  bookmarkFolderId: {
+    type: Schema.Types.ObjectId,
+    require: true,
+  },
   createdAt: {
     type: Date,
     default: new Date(),
@@ -38,4 +42,4 @@ const userSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("users", userSchema);
+module.exports = mongoose.model('users', userSchema);

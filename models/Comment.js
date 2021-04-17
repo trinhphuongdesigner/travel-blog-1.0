@@ -1,7 +1,16 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+
+const { Schema } = mongoose;
 
 const commentSchema = new Schema({
+  userId: {
+    type: Schema.Types.ObjectId,
+    require: true,
+  },
+  postId: {
+    type: Schema.Types.ObjectId,
+    require: true,
+  },
   createdAt: {
     type: Date,
     default: new Date(),
@@ -14,4 +23,4 @@ const commentSchema = new Schema({
   vote: Number,
 });
 
-module.exports = mongoose.model("comments", commentSchema);
+module.exports = mongoose.model('comments', commentSchema);

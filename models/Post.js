@@ -1,9 +1,16 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+
+const { Schema } = mongoose;
 
 const postSchema = new Schema({
-  categoryId: Schema.Types.ObjectId,
-  userId: Schema.Types.ObjectId,
+  categoryId: {
+    type: Schema.Types.ObjectId,
+    require: true,
+  },
+  userId: {
+    type: Schema.Types.ObjectId,
+    require: true,
+  },
   coverImage: String,
   title: {
     type: String,
@@ -43,13 +50,13 @@ const postSchema = new Schema({
     subTitle: String,
     type: {
       type: String,
-      default: 'PLAY', //PLAY | EAT | STAY
+      default: 'PLAY', // PLAY | EAT | STAY
     },
     description: String,
     address: String,
     price: Number,
     transportation: Array,
-    totalTime: Number, //Hours
+    totalTime: Number, // Hours
     people: Number,
     howToGo: String,
     activeTime: Array,
@@ -57,4 +64,4 @@ const postSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("posts", postSchema);
+module.exports = mongoose.model('posts', postSchema);

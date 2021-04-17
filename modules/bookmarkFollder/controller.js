@@ -3,8 +3,8 @@ const { BookmarkFolder } = require('../../models');
 module.exports = {
   getBookmarkFolders: async (req, res) => {
     try {
-      const bookmarkfolder = await BookmarkFolder.find().select().lean();
-      if (!bookmarkfolder) {
+      const result = await BookmarkFolder.find().select().lean();
+      if (!result) {
         res.json({
           status: 404,
           message: "Not found",
@@ -14,8 +14,8 @@ module.exports = {
       }
       res.json({
         status: 200,
-        message: "Get BookmarkFolder Success",
-        payload: bookmarkfolder,
+        message: "Get Bookmark Folder Success",
+        payload: result,
       });
     } catch (err) {
       res.json({
@@ -29,11 +29,11 @@ module.exports = {
   createBookmarkFolder: async (req, res) => {
     try {
       const newbookmarkfolder = new BookmarkFolder({ ...req.body });
-      const bookmarkFolder = await newbookmarkfolder.save();
+      const result = await newbookmarkfolder.save();
       res.json({
         status: 200,
-        message: "Create bookmarkLink success",
-        payload: bookmarkFolder,
+        message: "Create Bookmark Folder success",
+        payload: result,
       });
     } catch (err) {
       res.json({
@@ -47,19 +47,19 @@ module.exports = {
   updatebookmarkFolder: async (req, res) => {
     try {
       const { id } = req.params; // Lay ID tu URL
-      const bookmarkfolder = await BookmarkFolder.updateOne(
+      const result = await BookmarkFolder.updateOne(
         { _id: id },
         {
           $set: {
             ...req.body,
-          }
+          },
         }
       );
       res.json({
         status: 200,
-        message: "updatebookmarkFolder",
-        payload: bookmarkfolder
-      })
+        message: "Update Bookmark Folder Success",
+        payload: result,
+      });
     } catch (err){
       res.json({
         status: 500,
@@ -75,7 +75,7 @@ module.exports = {
       const bookmarkfolder = await BookmarkFolder.remove({ _id: id });
       res.json({
         status: 200,
-        message: "Delete BookmarkFolder Success",
+        message: "Delete Bookmark Folder Success",
         payload: bookmarkfolder,
       })
     } catch (err){

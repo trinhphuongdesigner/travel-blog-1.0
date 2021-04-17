@@ -5,7 +5,6 @@ const Comment = require('./Comment');
 const Post = require('./Post');
 const PostActivity = require('./PostActivity');
 const User = require('./User');
-const UserComment = require('./UserComment');
 const UserFollower = require('./UserFollower');
 
 module.exports = {
@@ -16,6 +15,5 @@ module.exports = {
   Post,
   PostActivity,
   User,
-  UserComment,
   UserFollower,
 };

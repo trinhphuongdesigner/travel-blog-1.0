@@ -2,10 +2,15 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-
 const bookmarkLinkSchema = new Schema({
-  bookmarkFolderId: Schema.Types.ObjectId,
-  postId: Schema.Types.ObjectId,
+  bookmarkFolderId: {
+    type: Schema.Types.ObjectId,
+    require: true,
+  },
+  postId: {
+    type: Schema.Types.ObjectId,
+    require: true,
+  },
   createdAt: {
     type: Date,
     default: new Date(),
