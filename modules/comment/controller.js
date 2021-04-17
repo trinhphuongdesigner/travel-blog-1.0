@@ -81,7 +81,7 @@ module.exports = {
           $set: {
             ...req.body,
           },
-        }
+        },
       );
       res.json({
         status: 200,
