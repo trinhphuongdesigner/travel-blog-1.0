@@ -90,7 +90,7 @@ module.exports = {
             ...req.body,
             updateAt: new Date().getTime(),
           },
-        }
+        },
       );
       res.json({
         status: 200,

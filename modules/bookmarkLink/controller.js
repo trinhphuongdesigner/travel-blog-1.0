@@ -1,5 +1,4 @@
-const { BookmarkLink } = require("../../models");
-
+const { BookmarkLink } = require('../../models');
 
 module.exports = {
 
@@ -9,20 +8,20 @@ module.exports = {
       if (!result) {
         res.json({
           status: 404,
-          message: "Not found",
+          message: 'Not found',
           payload: null,
         });
         return;
       }
       res.json({
         status: 200,
-        message: "Get Bookmark Link Success",
+        message: 'Get Bookmark Link Success',
         payload: result,
       });
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal Server Error",
+        message: 'Internal Server Error',
         payload: err,
       });
     }
@@ -33,15 +32,15 @@ module.exports = {
       const result = await newbookmarklink.save();
       res.json({
         status: 200,
-        message: "Create Bookmark Link success",
+        message: 'Create Bookmark Link success',
         payload: result,
       });
     } catch (err) {
-        res.json({
-          status: 500,
-          message: "",
-          payload: err,
-        });
+      res.json({
+        status: 500,
+        message: '',
+        payload: err,
+      });
     }
   },
   updateBookmarkLink: async (req, res) => {
@@ -53,19 +52,19 @@ module.exports = {
           $set: {
             ...req.body,
           },
-        }
+        },
       );
       res.json({
         status: 200,
-        message: "Update Bookmark Link Success",
+        message: 'Update Bookmark Link Success',
         payload: result,
       });
     } catch (err) {
       res.json({
         status: 500,
-        message: "Internal Server Error",
+        message: 'Internal Server Error',
         payload: err,
-      })
+      });
     }
   },
   deleteBookmarkLink: async (req, res) => {
@@ -74,15 +73,15 @@ module.exports = {
       const result = await BookmarkLink.remove({ _id: id });
       res.json({
         status: 200,
-        message: "Delete Bookmark Link Success",
+        message: 'Delete Bookmark Link Success',
         payload: result,
       });
     } catch (err) {
-        res.json({
+      res.json({
         status: 500,
-        message: "Internal Server Error",
+        message: 'Internal Server Error',
         payload: err,
-      })
+      });
     }
   },
 };

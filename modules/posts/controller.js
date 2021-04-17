@@ -95,7 +95,7 @@ module.exports = {
           $set: {
             ...req.body,
           },
-        }
+        },
       );
       updatePostActivities(req.body.userId, id, 'UPDATE');
       res.json({
