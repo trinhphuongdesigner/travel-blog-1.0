@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
+const bcrypt = require('bcrypt');
+
+const saltRounds = 10;
+
 const userSchema = new Schema({
   firstName: {
     type: String,
@@ -18,7 +22,18 @@ const userSchema = new Schema({
     type: String,
     default: 'CONTRIBUTOR', // ADMIN | MANAGER | CONTRIBUTOR
   },
-  email: String,
+  email: {
+    type: String,
+    unique: true,
+  },
+  password: {
+    type: String,
+    require: true,
+  },
+  isBlocked: {
+    type: Boolean,
+    default: false,
+  },
   phone: String,
   address: String,
   about: String,
@@ -41,5 +56,26 @@ const userSchema = new Schema({
     default: new Date(),
   },
 });
+
+userSchema.pre('save', function a(next) {
+  const user = this;
+
+  if (!user.isModified('password')) return next();
+
+  bcrypt.genSalt(saltRounds, (err, salt) => {
+    if (err) return next(err);
+
+    bcrypt.hash(user.password, salt, (hashErr, hash) => {
+      if (hashErr) return next(hashErr);
+
+      user.password = hash;
+      next();
+    });
+  });
+});
+
+userSchema.methods.comparePassword = function comparePassword(candicatePassword) {
+  return bcrypt.compareSync(candicatePassword, this.password);
+};
 
 module.exports = mongoose.model('users', userSchema);
