@@ -6,11 +6,11 @@ const passport = require('passport');
 
 const { login, register } = require('./controller');
 
-router.post('/login/', passport.authenticate('local', {
+router.post('/login', passport.authenticate('local', {
   successRedirect: '/users',
   failureRedirect: '/login',
 }), login);
 
-router.post('/register/', register);
+router.post('/register', register);
 
 module.exports = router;

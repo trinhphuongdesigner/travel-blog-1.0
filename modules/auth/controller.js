@@ -44,7 +44,7 @@ module.exports = {
         if (err) {
           res.json({
             status: 500,
-            message: 'Internal Server Error',
+            message: 'Cannot find an account',
             payload: err,
           });
           return;
@@ -64,7 +64,7 @@ module.exports = {
           if (saveErr) {
             res.json({
               status: 500,
-              message: 'Internal Server Error',
+              message: 'Save Error',
               payload: saveErr,
             });
             return;
@@ -75,7 +75,6 @@ module.exports = {
             payload: result,
           });
         });
-        // passport.authenticate('local')(req, res, function() {res.redirect('/login'); });
       });
     } catch (err) {
       res.json({
