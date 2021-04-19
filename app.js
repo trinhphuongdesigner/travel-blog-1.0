@@ -2,6 +2,10 @@ const express = require('express');
 const ejsMate = require('ejs-mate');
 const mongoose = require('mongoose');
 
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const { User } = require('./models');
+
 const app = express();
 
 const routes = require('./routers');
@@ -14,6 +18,16 @@ mongoose.connect('mongodb://localhost:27017/Blog', {
   useUnifiedTopology: true,
 });
 
+app.use(require('express-session')({
+  secret: 'Any normal Word', // decode or encode session
+  resave: false,
+  saveUninitialized: false.valueOf,
+}));
+
+passport.serializeUser(User.serializeUser()); // session encoding
+passport.deserializeUser(User.deserializeUser()); // session decoding
+passport.use(new LocalStrategy(User.authenticate()));
+
 app.set('view engine', 'ejs');
 app.set('views', './views');
 app.engine('ejs', ejsMate);
@@ -22,6 +36,9 @@ app.engine('ejs', ejsMate);
 app.use(express.urlencoded({ extended: true }));
 // parse application/json
 app.use(express.json());
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/static', express.static('./static'));
 

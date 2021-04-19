@@ -60,7 +60,6 @@ module.exports = {
         res.json({
           status: 500,
           message: 'Account is Existed',
-          payload: checkedEmail,
         });
         return;
       }

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const { Schema } = mongoose.Types;
+const { Schema } = mongoose;
 
 const userFollowerSchema = new Schema({
   followerId: {

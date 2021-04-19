@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
+const passportLocalMongoose = require('passport-local-mongoose');
+
 const bcrypt = require('bcrypt');
 
 const saltRounds = 10;
@@ -24,6 +26,7 @@ const userSchema = new Schema({
   },
   email: {
     type: String,
+    require: true,
     unique: true,
   },
   password: {
@@ -42,10 +45,6 @@ const userSchema = new Schema({
     instagram: String,
     web: String,
     other: String,
-  },
-  bookmarkFolderId: {
-    type: Schema.Types.ObjectId,
-    require: true,
   },
   createdAt: {
     type: Date,
@@ -78,4 +77,5 @@ userSchema.methods.comparePassword = function comparePassword(candicatePassword)
   return bcrypt.compareSync(candicatePassword, this.password);
 };
 
+userSchema.plugin(passportLocalMongoose);
 module.exports = mongoose.model('users', userSchema);
