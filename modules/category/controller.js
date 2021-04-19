@@ -59,6 +59,7 @@ module.exports = {
   createCategory: async (req, res) => {
     try {
       const { name, status } = req.body;
+      console.log(req.body);
       const newCategory = new Category({
         name,
         status,

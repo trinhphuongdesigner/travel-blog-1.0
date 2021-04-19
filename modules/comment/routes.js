@@ -14,6 +14,6 @@ router.get('/:id', getComment);
 router.get('/', getComments);
 router.post('/', createComment);
 router.put('/:id', updateComment);
-router.delete('/id', deleteComment);
+router.delete('/:id', deleteComment);
 
 module.exports = router;
