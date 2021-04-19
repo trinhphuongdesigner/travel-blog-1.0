@@ -3,13 +3,10 @@
 const { User } = require('../../models');
 
 module.exports = {
-
   login: async (req, res) => {
     // try {
     //   const { email, password } = req.body;
-
     //   const result = await User.findOne({ email });
-
     //   if (result && result.isBlocked) {
     //     res.json({
     //       status: 200,
@@ -18,7 +15,6 @@ module.exports = {
     //     });
     //     return;
     //   }
-
     //   if (!result || !result.comparePassword(password)) {
     //     res.json({
     //       status: 200,
@@ -27,7 +23,6 @@ module.exports = {
     //     });
     //     return;
     //   }
-
     //   res.json({
     //     status: 200,
     //     message: 'Login Success',
@@ -45,26 +40,42 @@ module.exports = {
   register: async (req, res) => {
     try {
       const { email } = req.body;
-      const checkedEmail = await User.findOne({ email });
-      if (checkedEmail) {
-        res.json({
-          status: 500,
-          message: 'Account is Existed',
-        });
-        return;
-      }
-      const newUser = new User({
-        ...req.body,
-        createdAt: new Date().getTime(),
-        updateAt: new Date().getTime(),
-      });
-      const result = await newUser.save();
-      // passport.authenticate('local')(req, res, function() {res.redirect('/login'); });
+      await User.findOne({ email }, (err, user) => {
+        if (err) {
+          res.json({
+            status: 500,
+            message: 'Internal Server Error',
+            payload: err,
+          });
+          return;
+        }
+        if (user) {
+          res.json({
+            status: 500,
+            message: 'Account is Existed',
+          });
+          return;
+        }
 
-      res.json({
-        status: 200,
-        message: 'Create User Success',
-        payload: result,
+        const newUser = new User({
+          ...req.body,
+        });
+        newUser.save((saveErr, result) => {
+          if (saveErr) {
+            res.json({
+              status: 500,
+              message: 'Internal Server Error',
+              payload: saveErr,
+            });
+            return;
+          }
+          res.json({
+            status: 200,
+            message: 'Create User Success',
+            payload: result,
+          });
+        });
+        // passport.authenticate('local')(req, res, function() {res.redirect('/login'); });
       });
     } catch (err) {
       res.json({
@@ -74,5 +85,4 @@ module.exports = {
       });
     }
   },
-
 };

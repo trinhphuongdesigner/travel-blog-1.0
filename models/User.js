@@ -6,8 +6,6 @@ const passportLocalMongoose = require('passport-local-mongoose');
 
 const bcrypt = require('bcrypt');
 
-const saltRounds = 10;
-
 const userSchema = new Schema({
   firstName: {
     type: String,
@@ -26,12 +24,14 @@ const userSchema = new Schema({
   },
   email: {
     type: String,
-    require: true,
+    required: true,
     unique: true,
+    trim: true,
+    lowercase: true,
   },
   password: {
     type: String,
-    require: true,
+    required: true,
   },
   isBlocked: {
     type: Boolean,
@@ -46,22 +46,17 @@ const userSchema = new Schema({
     web: String,
     other: String,
   },
-  createdAt: {
-    type: Date,
-    default: new Date(),
-  },
-  updatedAt: {
-    type: Date,
-    default: new Date(),
-  },
+}, {
+  timestamps: true,
 });
 
-userSchema.pre('save', function a(next) {
+// eslint-disable-next-line func-names
+userSchema.pre('save', function (next) {
   const user = this;
 
   if (!user.isModified('password')) return next();
 
-  bcrypt.genSalt(saltRounds, (err, salt) => {
+  bcrypt.genSalt(10, (err, salt) => {
     if (err) return next(err);
 
     bcrypt.hash(user.password, salt, (hashErr, hash) => {

@@ -9,7 +9,7 @@ const { login, register } = require('./controller');
 router.post('/login/', passport.authenticate('local', {
   successRedirect: '/users',
   failureRedirect: '/login',
-}), () => {});
+}), login);
 
 router.post('/register/', register);
 

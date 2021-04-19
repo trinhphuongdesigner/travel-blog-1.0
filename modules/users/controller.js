@@ -52,36 +52,34 @@ module.exports = {
     }
   },
 
-  createUser: async (req, res) => {
-    try {
-      const { email } = req.body;
-      const checkedEmail = await User.findOne({ email });
-      if (checkedEmail) {
-        res.json({
-          status: 500,
-          message: 'Account is Existed',
-        });
-        return;
-      }
-      const newUser = new User({
-        ...req.body,
-        createdAt: new Date().getTime(),
-        updateAt: new Date().getTime(),
-      });
-      const result = await newUser.save();
-      res.json({
-        status: 200,
-        message: 'Create User Success',
-        payload: result,
-      });
-    } catch (err) {
-      res.json({
-        status: 500,
-        message: 'Internal Server Error',
-        payload: err,
-      });
-    }
-  },
+  // createUser: async (req, res) => {
+  //   try {
+  //     const { email } = req.body;
+  //     const checkedEmail = await User.findOne({ email });
+  //     if (checkedEmail) {
+  //       res.json({
+  //         status: 500,
+  //         message: 'Account is Existed',
+  //       });
+  //       return;
+  //     }
+  //     const newUser = new User({
+  //       ...req.body,
+  //     });
+  //     const result = await newUser.save();
+  //     res.json({
+  //       status: 200,
+  //       message: 'Create User Success',
+  //       payload: result,
+  //     });
+  //   } catch (err) {
+  //     res.json({
+  //       status: 500,
+  //       message: 'Internal Server Error',
+  //       payload: err,
+  //     });
+  //   }
+  // },
 
   updateUser: async (req, res) => {
     try {
@@ -91,7 +89,6 @@ module.exports = {
         {
           $set: {
             ...req.body,
-            updateAt: new Date().getTime(),
           },
         },
       );

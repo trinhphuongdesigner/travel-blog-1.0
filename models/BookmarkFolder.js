@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 const bookmarkFolderSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
-    require: true,
+    required: true,
   },
   title: {
     type: String,
@@ -13,6 +13,8 @@ const bookmarkFolderSchema = new Schema({
     unique: true,
     trim: true,
   },
+}, {
+  timestamps: true,
 });
 
 module.exports = mongoose.model('bookmark_folders', bookmarkFolderSchema);

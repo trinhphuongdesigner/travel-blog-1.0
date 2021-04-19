@@ -5,14 +5,14 @@ const router = express.Router();
 const {
   getUsers,
   getUser,
-  createUser,
+  // createUser,
   updateUser,
   deleteUser,
 } = require('./controller');
 
 router.get('/', getUsers);
 router.get('/:id', getUser);
-router.post('/', createUser);
+// router.post('/', createUser);
 router.put('/:id', updateUser);
 router.delete('/:id', deleteUser);
 

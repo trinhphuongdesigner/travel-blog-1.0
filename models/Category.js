@@ -14,14 +14,8 @@ const categorySchema = new Schema({
     default: 'ACTIVE', // ACTIVE | INACTIVE
     trim: true,
   },
-  createdAt: {
-    type: Date,
-    default: new Date(),
-  },
-  updateAt: {
-    type: Date,
-    default: new Date(),
-  },
+}, {
+  timestamps: true,
 });
 
 module.exports = mongoose.model('categories', categorySchema);
