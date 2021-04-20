@@ -6,10 +6,12 @@ const postActivitySchema = new Schema({
   postId: {
     type: Schema.Types.ObjectId,
     required: true,
+    ref: 'posts',
   },
   userId: {
     type: Schema.Types.ObjectId,
     required: true,
+    ref: 'users',
   },
   timeStamp: {
     type: Date,

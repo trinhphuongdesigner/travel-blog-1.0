@@ -1,3 +1,5 @@
+const { validationResult } = require('express-validator');
+
 const { Category } = require('../../models');
 
 module.exports = {
@@ -31,7 +33,7 @@ module.exports = {
   getCategory: async (req, res) => {
     try {
       const { id } = req.params;
-      const result = await Category.findById(id).lean();
+      const result = await Category.findOne({ _id: id }).lean();
 
       if (!result) {
         res.json({
@@ -58,6 +60,12 @@ module.exports = {
 
   createCategory: async (req, res) => {
     try {
+      const errors = validationResult(req);
+
+      if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+      }
+
       const { name, status } = req.body;
       const newCategory = new Category({
         name,
@@ -65,7 +73,7 @@ module.exports = {
       });
       const result = await newCategory.save();
       res.json({
-        status: 200,
+        status: 201,
         message: 'Create Category Success',
         payload: result,
       });
@@ -86,6 +94,7 @@ module.exports = {
         {
           $set: {
             ...req.body,
+            updatedAt: new Date().getTime(),
           },
         },
       );
@@ -106,7 +115,7 @@ module.exports = {
   deleteCategory: async (req, res) => {
     try {
       const { id } = req.params;
-      const result = await Category.remove({ _id: id });
+      const result = await Category.deleteOne({ _id: id });
       res.json({
         status: 200,
         message: 'Delete Category Success',

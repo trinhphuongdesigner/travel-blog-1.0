@@ -1,8 +1,7 @@
+/* eslint-disable no-useless-escape */
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
-
-const passportLocalMongoose = require('passport-local-mongoose');
 
 const bcrypt = require('bcrypt');
 
@@ -28,7 +27,6 @@ const userSchema = new Schema({
     unique: true,
     trim: true,
     lowercase: true,
-    // eslint-disable-next-line no-useless-escape
     match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address'],
   },
   password: {
@@ -53,8 +51,18 @@ const userSchema = new Schema({
     web: String,
     other: String,
   },
-}, {
-  timestamps: true,
+  avatar: {
+    type: String,
+    default: 'https://i.pinimg.com/originals/be/2d/30/be2d307e7f0004d3b014ee1120756a93.jpg',
+  },
+  createdAt: {
+    type: Date,
+    default: new Date(),
+  },
+  updatedAt: {
+    type: Date,
+    default: new Date(),
+  },
 });
 
 // eslint-disable-next-line func-names
@@ -79,5 +87,4 @@ userSchema.methods.comparePassword = function comparePassword(candicatePassword)
   return bcrypt.compareSync(candicatePassword, this.password);
 };
 
-userSchema.plugin(passportLocalMongoose);
 module.exports = mongoose.model('users', userSchema);

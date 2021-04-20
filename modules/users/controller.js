@@ -1,10 +1,12 @@
+const { validationResult } = require('express-validator');
+
 const { User } = require('../../models/index');
 
 module.exports = {
   getUser: async (req, res) => {
     try {
       const { id } = req.params;
-      const result = await User.findById(id).lean();
+      const result = await User.findOne({ _id: id }).lean();
       if (!result) {
         res.json({
           status: 404,
@@ -52,35 +54,54 @@ module.exports = {
     }
   },
 
-  createUser: async (req, res) => {
-    try {
-      const { email } = req.body;
-      const checkedEmail = await User.findOne({ email });
-      if (checkedEmail) {
+  createUser: (req, res) => {
+    const { email, password } = req.body;
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+
+    User.findOne({ email }, (err, user) => {
+      if (err) {
         res.json({
-          status: 500,
+          status: 404,
+          message: 'Cannot find an account',
+          payload: err,
+        });
+        return;
+      }
+      if (user) {
+        res.json({
+          status: 400,
           message: 'Account is Existed',
         });
         return;
       }
+
       const newUser = new User({
-        ...req.body,
-        createdAt: new Date().getTime(),
-        updateAt: new Date().getTime(),
+        email,
+        password,
       });
-      const result = await newUser.save();
-      res.json({
-        status: 200,
-        message: 'Create User Success',
-        payload: result,
+      newUser.save((saveErr, result) => {
+        if (saveErr) {
+          res.json({
+            status: 400,
+            message: 'Save Error',
+            payload: saveErr,
+          });
+          return;
+        }
+        req.session.user = user;
+
+        // res.redirect('/admin/dashboard');
+        res.json({
+          status: 201,
+          message: 'Create User Success',
+          payload: result,
+        });
       });
-    } catch (err) {
-      res.json({
-        status: 500,
-        message: 'Internal Server Error',
-        payload: err,
-      });
-    }
+    });
   },
 
   updateUser: async (req, res) => {
@@ -91,6 +112,7 @@ module.exports = {
         {
           $set: {
             ...req.body,
+            updatedAt: new Date().getTime(),
           },
         },
       );
@@ -111,7 +133,7 @@ module.exports = {
   deleteUser: async (req, res) => {
     try {
       const { id } = req.params;
-      const result = await User.remove({ _id: id });
+      const result = await User.deleteOne({ _id: id });
 
       res.json({
         status: 200,
