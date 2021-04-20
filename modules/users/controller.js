@@ -4,7 +4,7 @@ module.exports = {
   getUser: async (req, res) => {
     try {
       const { id } = req.params;
-      const result = await User.findOne(id).lean();
+      const result = await User.findOne({ _id: id }).lean();
       if (!result) {
         res.json({
           status: 404,

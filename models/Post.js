@@ -43,6 +43,7 @@ const postSchema = new Schema({
   transportation: Array,
   totalPrice: Number,
   howToGo: String,
+  duration: Number,
   tags: Array,
   vote: Number,
   locations: {

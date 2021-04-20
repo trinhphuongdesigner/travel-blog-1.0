@@ -31,7 +31,7 @@ module.exports = {
   getCategory: async (req, res) => {
     try {
       const { id } = req.params;
-      const result = await Category.findOne(id).lean();
+      const result = await Category.findOne({ _id: id }).lean();
 
       if (!result) {
         res.json({

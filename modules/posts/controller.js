@@ -13,7 +13,15 @@ const updatePostActivities = async (userId, postId, activity) => {
 module.exports = {
   getPosts: async (req, res) => {
     try {
-      const result = await Post.find().select().lean();
+      const { perPage, page, searchKey } = req.query;
+      const defaultPerPage = Number(perPage) || 10; // số lượng sản phẩm xuất hiện trên 1 page
+      const defaultPage = Number(page) || 1;
+
+      const result = await Post.find({ title: searchKey })
+        .skip((defaultPerPage * defaultPage) - defaultPerPage)
+        .limit(defaultPerPage)
+        .select('title')
+        .lean();
       if (!result) {
         res.json({
           status: 404,
@@ -22,6 +30,7 @@ module.exports = {
         });
         return;
       }
+
       res.json({
         status: 200,
         message: 'Get Posts Success',
@@ -39,7 +48,7 @@ module.exports = {
   getPost: async (req, res) => {
     try {
       const { id } = req.params;
-      const result = await Post.findOne(id).lean();
+      const result = await Post.findOne({ _id: id }).lean();
       if (!result) {
         res.json({
           status: 404,
