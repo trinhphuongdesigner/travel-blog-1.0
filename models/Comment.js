@@ -17,8 +17,10 @@ const commentSchema = new Schema({
     trim: true,
   },
   vote: Number,
-}, {
-  timestamps: true,
+  createdAt: {
+    type: Date,
+    default: new Date(),
+  },
 });
 
 module.exports = mongoose.model('comments', commentSchema);

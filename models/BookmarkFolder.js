@@ -13,8 +13,14 @@ const bookmarkFolderSchema = new Schema({
     unique: true,
     trim: true,
   },
-}, {
-  timestamps: true,
+  createdAt: {
+    type: Date,
+    default: new Date(),
+  },
+  updatedAt: {
+    type: Date,
+    default: new Date(),
+  },
 });
 
 module.exports = mongoose.model('bookmark_folders', bookmarkFolderSchema);

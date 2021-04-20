@@ -13,14 +13,28 @@ const updatePostActivities = async (userId, postId, activity) => {
 module.exports = {
   getPosts: async (req, res) => {
     try {
-      const { perPage, page, searchKey } = req.query;
-      const defaultPerPage = Number(perPage) || 10; // số lượng sản phẩm xuất hiện trên 1 page
+      const {
+        perPage, // lấy bao nhiêu kết quả?
+        page, // lấy kết quả ở trang nào?
+        searchField, // tìm kiếm ở trường nào?
+        searchKey, // từ khóa tìm kiếm?
+        sortName, // sắp xếp theo trường nào?
+        order, // thứ tự sắp xếp?
+      } = req.query;
+      const defaultPerPage = Number(perPage) || 12; // số lượng sản phẩm xuất hiện trên 1 page
       const defaultPage = Number(page) || 1;
 
-      const result = await Post.find({ title: searchKey })
+      const sortObject = {};
+      sortObject[sortName || 'title'] = order || 'asc'; // khởi tạo giá trị mặc định cho đối tượng sắp xếp dữ liệu
+
+      const findObject = {};
+      findObject[searchField || 'title'] = new RegExp(searchKey, 'i'); // khởi tạo giá trị mặc định cho đối tượng tìm kiếm dữ liệu
+
+      const result = await Post.find(findObject)
         .skip((defaultPerPage * defaultPage) - defaultPerPage)
         .limit(defaultPerPage)
         .select('title')
+        .sort(sortObject)
         .lean();
       if (!result) {
         res.json({

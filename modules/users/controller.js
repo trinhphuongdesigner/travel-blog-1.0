@@ -65,8 +65,6 @@ module.exports = {
       }
       const newUser = new User({
         ...req.body,
-        createdAt: new Date().getTime(),
-        updateAt: new Date().getTime(),
       });
       const result = await newUser.save();
       res.json({
@@ -91,6 +89,7 @@ module.exports = {
         {
           $set: {
             ...req.body,
+            updatedAt: new Date().getTime(),
           },
         },
       );

@@ -53,8 +53,14 @@ const userSchema = new Schema({
     web: String,
     other: String,
   },
-}, {
-  timestamps: true,
+  createdAt: {
+    type: Date,
+    default: new Date(),
+  },
+  updatedAt: {
+    type: Date,
+    default: new Date(),
+  },
 });
 
 // eslint-disable-next-line func-names

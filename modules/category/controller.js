@@ -86,6 +86,7 @@ module.exports = {
         {
           $set: {
             ...req.body,
+            updatedAt: new Date().getTime(),
           },
         },
       );
