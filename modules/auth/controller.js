@@ -4,37 +4,37 @@ const { User } = require('../../models');
 
 module.exports = {
   login: async (req, res) => {
-    // try {
-    //   const { email, password } = req.body;
-    //   const result = await User.findOne({ email });
-    //   if (result && result.isBlocked) {
-    //     res.json({
-    //       status: 200,
-    //       message: 'Your Account is Blocked',
-    //       payload: result,
-    //     });
-    //     return;
-    //   }
-    //   if (!result || !result.comparePassword(password)) {
-    //     res.json({
-    //       status: 200,
-    //       message: 'UseName or Password is Not Correct',
-    //       payload: result,
-    //     });
-    //     return;
-    //   }
-    //   res.json({
-    //     status: 200,
-    //     message: 'Login Success',
-    //     payload: result,
-    //   });
-    // } catch (err) {
-    //   res.json({
-    //     status: 500,
-    //     message: '',
-    //     payload: err,
-    //   });
-    // }
+    const { email, password } = req.body;
+    await User.findOne({ email }).exec((err, user) => {
+      if (err) {
+        res.json({
+          status: 404,
+          message: 'Not found',
+          payload: err,
+        });
+        return;
+      }
+      if (user && user.isBlocked) {
+        res.json({
+          status: 200,
+          message: 'Your Account is Blocked',
+          payload: user,
+        });
+        return;
+      }
+      if (!user || !user.comparePassword(password)) {
+        res.json({
+          status: 200,
+          message: 'UseName or Password is Not Correct',
+        });
+        return;
+      }
+      res.json({
+        status: 200,
+        message: 'Login Success',
+        payload: user,
+      });
+    });
   },
 
   register: async (req, res) => {
@@ -60,7 +60,7 @@ module.exports = {
         const newUser = new User({
           ...req.body,
         });
-        newUser.save((saveErr, result) => {
+        newUser.save((saveErr, nUser) => {
           if (saveErr) {
             res.json({
               status: 500,
@@ -72,7 +72,7 @@ module.exports = {
           res.json({
             status: 200,
             message: 'Create User Success',
-            payload: result,
+            payload: nUser,
           });
         });
       });

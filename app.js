@@ -1,6 +1,7 @@
 const express = require('express');
 const ejsMate = require('ejs-mate');
 const mongoose = require('mongoose');
+const session = require('express-session');
 
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
@@ -18,10 +19,14 @@ mongoose.connect('mongodb://localhost:27017/Blog', {
   useUnifiedTopology: true,
 });
 
-app.use(require('express-session')({
+app.use(session({
   secret: 'Any normal Word', // decode or encode session
   resave: false,
   saveUninitialized: false.valueOf,
+  // cookie: {
+  //   expires: 15 * 60 * 60,
+  //   httpOnly: false,
+  // },
 }));
 
 passport.serializeUser(User.serializeUser()); // session encoding
