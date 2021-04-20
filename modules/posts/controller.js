@@ -39,7 +39,7 @@ module.exports = {
   getPost: async (req, res) => {
     try {
       const { id } = req.params;
-      const result = await Post.findById(id).lean();
+      const result = await Post.findOne(id).lean();
       if (!result) {
         res.json({
           status: 404,

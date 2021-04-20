@@ -17,7 +17,10 @@ const postSchema = new Schema({
     required: true,
     trim: true,
   },
-  subTitle: String,
+  subTitle: {
+    type: String,
+    trim: true,
+  },
   status: {
     type: String,
     default: 'PENDING', // PENDING | ACTIVE | UPDATE | CLOSE

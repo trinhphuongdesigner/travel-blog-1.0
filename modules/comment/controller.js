@@ -4,7 +4,7 @@ module.exports = {
   getComment: async (req, res) => {
     try {
       const { id } = req.params;
-      const result = await Comment.findById(id).lean();
+      const result = await Comment.findOne(id).lean();
       if (!result) {
         res.json({
           status: 404,

@@ -63,7 +63,7 @@ module.exports = {
         newUser.save((saveErr, nUser) => {
           if (saveErr) {
             res.json({
-              status: 500,
+              status: 400,
               message: 'Save Error',
               payload: saveErr,
             });
