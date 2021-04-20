@@ -6,10 +6,12 @@ const commentSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
     required: true,
+    ref: 'users',
   },
   postId: {
     type: Schema.Types.ObjectId,
     required: true,
+    ref: 'posts',
   },
   content: {
     type: String,
@@ -17,8 +19,10 @@ const commentSchema = new Schema({
     trim: true,
   },
   vote: Number,
-}, {
-  timestamps: true,
+  createdAt: {
+    type: Date,
+    default: new Date(),
+  },
 });
 
 module.exports = mongoose.model('comments', commentSchema);

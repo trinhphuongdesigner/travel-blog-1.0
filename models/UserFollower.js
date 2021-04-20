@@ -6,10 +6,12 @@ const userFollowerSchema = new Schema({
   followerId: {
     type: Schema.Types.ObjectId,
     required: true,
+    ref: 'users',
   },
   followingId: {
     type: Schema.Types.ObjectId,
     required: true,
+    ref: 'users',
   },
 }, {
   timestamps: true,
