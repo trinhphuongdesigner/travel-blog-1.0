@@ -53,6 +53,10 @@ const userSchema = new Schema({
     web: String,
     other: String,
   },
+  avatar: {
+    type: String,
+    default: 'https://i.pinimg.com/originals/be/2d/30/be2d307e7f0004d3b014ee1120756a93.jpg',
+  },
   createdAt: {
     type: Date,
     default: new Date(),
