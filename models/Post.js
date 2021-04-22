@@ -1,15 +1,19 @@
 const mongoose = require('mongoose');
 
+const getSlug = require('speakingurl');
+
 const { Schema } = mongoose;
 
 const postSchema = new Schema({
   categoryId: {
     type: Schema.Types.ObjectId,
     required: true,
+    ref: 'categories',
   },
   userId: {
     type: Schema.Types.ObjectId,
     required: true,
+    ref: 'users',
   },
   coverImage: String,
   title: {
@@ -66,6 +70,26 @@ const postSchema = new Schema({
     activeTime: Array,
     suggestion: String,
   },
+  slug: {
+    type: String,
+    unique: true,
+    trim: true,
+  },
+});
+
+// eslint-disable-next-line func-names
+postSchema.pre('save', function (next) {
+  const post = this;
+
+  if (!post.isModified('title')) return next();
+
+  const slug = getSlug(post.title, {
+    lang: 'vn',
+  });
+
+  post.slug = slug;
+
+  next();
 });
 
 module.exports = mongoose.model('posts', postSchema);

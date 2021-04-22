@@ -12,7 +12,13 @@ const postsRouter = require('./posts/routes');
 const userFollowerRouter = require('./userFollower/routes');
 const userRouter = require('./users/routes');
 
-router.use('/auth', login);
+router.use((req, res, next) => {
+  res.locals.flash_messages = req.session.flash;
+  delete req.session.flash;
+  next();
+});
+
+router.use('/admin', login);
 router.use('/bookmark-folders', bookmarkFolderRouter);
 router.use('/bookmark-links', bookmarkLinkRouter);
 router.use('/categories', categoryRouter);
