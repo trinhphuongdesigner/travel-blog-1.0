@@ -69,6 +69,7 @@ module.exports = {
             });
             return;
           }
+          // res.redirect('/admin');
           res.json({
             status: 200,
             message: 'Create User Success',
