@@ -45,10 +45,22 @@ module.exports = {
         return;
       }
 
-      res.json({
-        status: 200,
-        message: 'Get Posts Success',
-        payload: result,
+      Post.countDocuments(findObject).exec((error, count) => {
+        if (error) {
+          return res.json(error);
+        }
+        return res.json({
+          status: 200,
+          message: 'Get Posts Success',
+          payload: {
+            total: count,
+            totalPage: Math.ceil(count / defaultPerPage),
+            currentPage: defaultPage,
+            itemInPage: result.length,
+            limit: defaultPerPage,
+            data: result,
+          },
+        });
       });
     } catch (err) {
       res.json({

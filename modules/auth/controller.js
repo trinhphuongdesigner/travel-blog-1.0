@@ -37,52 +37,45 @@ module.exports = {
     });
   },
 
-  register: async (req, res) => {
-    try {
-      const { email } = req.body;
-      await User.findOne({ email }, (err, user) => {
-        if (err) {
-          res.json({
-            status: 500,
-            message: 'Cannot find an account',
-            payload: err,
-          });
-          return;
-        }
-        if (user) {
-          res.json({
-            status: 500,
-            message: 'Account is Existed',
-          });
-          return;
-        }
+  register: (req, res) => {
+    const { email } = req.body;
+    User.findOne({ email }, (err, user) => {
+      if (err) {
+        res.json({
+          status: 500,
+          message: 'Cannot find an account',
+          payload: err,
+        });
+        return;
+      }
+      if (user) {
+        res.json({
+          status: 500,
+          message: 'Account is Existed',
+        });
+        return;
+      }
 
-        const newUser = new User({
-          ...req.body,
-        });
-        newUser.save((saveErr, nUser) => {
-          if (saveErr) {
-            res.json({
-              status: 400,
-              message: 'Save Error',
-              payload: saveErr,
-            });
-            return;
-          }
-          // res.redirect('/admin');
+      const cUser = new User({
+        ...req.body,
+      });
+      cUser.save((saveErr, result) => {
+        if (saveErr) {
           res.json({
-            status: 200,
-            message: 'Create User Success',
-            payload: nUser,
+            status: 400,
+            message: 'Save Error',
+            payload: saveErr,
           });
+          return;
+        }
+        req.session.user = user;
+        // res.redirect('/admin');
+        res.json({
+          status: 200,
+          message: 'Create User Success',
+          payload: result,
         });
       });
-    } catch (err) {
-      res.json({
-        status: 500,
-        message: 'Internal Server Error',
-        payload: err,
-      });
-    }
+    });
   },
 };

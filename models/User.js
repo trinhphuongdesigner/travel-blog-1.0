@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const passportLocalMongoose = require('passport-local-mongoose');
+// const passportLocalMongoose = require('passport-local-mongoose');
 
 const bcrypt = require('bcrypt');
 
@@ -85,5 +85,5 @@ userSchema.methods.comparePassword = function comparePassword(candicatePassword)
   return bcrypt.compareSync(candicatePassword, this.password);
 };
 
-userSchema.plugin(passportLocalMongoose);
+// userSchema.plugin(passportLocalMongoose);
 module.exports = mongoose.model('users', userSchema);
