@@ -2,8 +2,6 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-// const passportLocalMongoose = require('passport-local-mongoose');
-
 const bcrypt = require('bcrypt');
 
 const userSchema = new Schema({
@@ -28,7 +26,6 @@ const userSchema = new Schema({
     unique: true,
     trim: true,
     lowercase: true,
-    // eslint-disable-next-line no-useless-escape
     // match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address'],
   },
   password: {
@@ -89,5 +86,4 @@ userSchema.methods.comparePassword = function comparePassword(candicatePassword)
   return bcrypt.compareSync(candicatePassword, this.password);
 };
 
-// userSchema.plugin(passportLocalMongoose);
 module.exports = mongoose.model('users', userSchema);

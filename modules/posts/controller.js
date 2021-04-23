@@ -20,7 +20,9 @@ module.exports = {
         searchKey, // từ khóa tìm kiếm?
         sortName, // sắp xếp theo trường nào?
         order, // thứ tự sắp xếp?
+        // filtersObject, // object chứa danh sách các thuộc tính muốn lọc
       } = req.query;
+
       const defaultPerPage = Number(perPage) || 12; // số lượng sản phẩm xuất hiện trên 1 page
       const defaultPage = Number(page) || 1;
 
@@ -30,10 +32,17 @@ module.exports = {
       const findObject = {};
       findObject[searchField || 'title'] = new RegExp(searchKey, 'i'); // khởi tạo giá trị mặc định cho đối tượng tìm kiếm dữ liệu
 
-      const result = await Post.find(findObject)
+      const query = { ...findObject };
+
+      // for (const [key, value] of Object.entries(JSON.parse(filtersObject))) {
+      //   query[key] = new RegExp(value, 'i');
+      //   console.log(`${key}: ${value}`);
+      // }
+
+      const result = await Post.find(query)
         .skip((defaultPerPage * defaultPage) - defaultPerPage)
         .limit(defaultPerPage)
-        .select('title')
+        .select('')
         .sort(sortObject)
         .lean();
       if (!result) {
@@ -45,7 +54,7 @@ module.exports = {
         return;
       }
 
-      Post.countDocuments(findObject).exec((error, count) => {
+      Post.countDocuments(query).exec((error, count) => {
         if (error) {
           return res.json(error);
         }
@@ -57,7 +66,8 @@ module.exports = {
             totalPage: Math.ceil(count / defaultPerPage),
             currentPage: defaultPage,
             itemInPage: result.length,
-            limit: defaultPerPage,
+            skip: (defaultPerPage * defaultPage) - defaultPerPage,
+            take: defaultPerPage,
             data: result,
           },
         });

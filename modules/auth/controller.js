@@ -46,6 +46,7 @@ module.exports = {
         status: 200,
         message: 'Login Success',
         payload: user,
+        session: req.session,
       });
     });
   },

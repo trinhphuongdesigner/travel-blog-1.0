@@ -27,18 +27,19 @@ router.route('/login').get(renderLogin).post(checkLogin, login);
 
 router.route('/register').get(renderRegister).post(checkRegister, register);
 
-router.use((req, res, next) => {
-  if (req.session.user) {
-    res.locals.currentUser = req.session.user;
-    return next();
-  }
-  res.json({
-    status: 500,
-    message: 'Save info fail',
-  });
-  // req.flash('danger', 'login fail');
-  // res.redirect('/admin/login');
-});
+// router.use((req, res, next) => {
+//   if (req.session.user) {
+//     res.locals.currentUser = req.session.user;
+//     console.log(">>>>>>>>>>>>>>>>")
+//     return next();
+//   }
+//   res.json({
+//     status: 500,
+//     message: 'Save info fail',
+//   });
+//   // req.flash('danger', 'login fail');
+//   // res.redirect('/admin/login');
+// });
 
 router.get('/logout', logoutController);
 
