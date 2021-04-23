@@ -31,7 +31,7 @@ module.exports = {
       const newbookmarkfolder = new BookmarkFolder({ ...req.body });
       const result = await newbookmarkfolder.save();
       res.json({
-        status: 200,
+        status: 201,
         message: 'Create Bookmark Folder success',
         payload: result,
       });

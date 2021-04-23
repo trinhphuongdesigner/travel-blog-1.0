@@ -31,7 +31,7 @@ module.exports = {
       const newbookmarklink = new BookmarkLink({ ...req.body });
       const result = await newbookmarklink.save();
       res.json({
-        status: 200,
+        status: 201,
         message: 'Create Bookmark Link success',
         payload: result,
       });

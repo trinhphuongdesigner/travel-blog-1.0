@@ -29,12 +29,12 @@ const userSchema = new Schema({
     trim: true,
     lowercase: true,
     // eslint-disable-next-line no-useless-escape
-    match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address'],
+    // match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address'],
   },
   password: {
     type: String,
     required: true,
-    match: [/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$/, 'Password must contain at least eight and maximum 10 characters characters, at least one number and both lower and uppercase letters and special characters'],
+    // match: [/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$/, 'Password must contain at least eight and maximum 10 characters characters, at least one number and both lower and uppercase letters and special characters'],
   },
   isBlocked: {
     type: Boolean,
@@ -43,7 +43,7 @@ const userSchema = new Schema({
   phone: {
     type: String,
     trim: true,
-    match: [/(84|0[3|5|7|8|9])+([0-9]{8})\b/, 'Please fill a valid phone number'],
+    // match: [/(84|0[3|5|7|8|9])+([0-9]{8})\b/, 'Please fill a valid phone number'],
   },
   address: String,
   about: String,

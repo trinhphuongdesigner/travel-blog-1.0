@@ -6,9 +6,9 @@ const flash = require('connect-flash');
 const MongoStore = require('connect-mongo');
 require('dotenv').config();
 
-const passport = require('passport');
-const LocalStrategy = require('passport-local');
-const { User } = require('./models');
+// const passport = require('passport');
+// const LocalStrategy = require('passport-local');
+// const { User } = require('./models');
 
 const app = express();
 
@@ -24,7 +24,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   secret: process.env.SESSION_SECRET,
-  store: MongoStore.create({ mongoUrl: 'mongodb://localhost:27017/Blog' }),
+  store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
   cookie: {
     expires: 15 * 60 * 60,
     httpOnly: false,

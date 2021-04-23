@@ -40,15 +40,22 @@ const checkPostActivity = [
 ];
 
 const checkLogin = [
-  check('email').isEmail().withMessage('Please fill a valid email address'),
-  check('email').isEmail().withMessage('Please fill a valid email address'),
+  check('email').not().isEmpty().withMessage('Email is required')
+    .isEmail()
+    .withMessage('Please fill a valid email address'),
   check('password').not().isEmpty().withMessage('Password is required'),
 ];
 
 const checkRegister = [
-  check('email').isEmail().withMessage('Please fill a valid email address'),
-  check('password').not().isEmpty().withMessage('Password is required'),
-  check('rePassword').matches('password').withMessage('Password is not match'),
+  check('email').not().isEmpty().withMessage('Email is required')
+    .isEmail()
+    .withMessage('Please fill a valid email address'),
+  check('password').not().isEmpty().withMessage('Password is required')
+    .isLength({ min: 6 })
+    .withMessage('Password is so sort'),
+  check('repassword', 'Password is not match').custom((value, { req }) => (
+    req.body.password === value
+  )),
 ];
 
 const checkUserFollower = [

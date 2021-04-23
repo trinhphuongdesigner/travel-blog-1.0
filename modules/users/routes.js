@@ -10,9 +10,11 @@ const {
   deleteUser,
 } = require('./controller');
 
+const { checkRegister } = require('../../helpers/validator');
+
 router.get('/', getUsers);
 router.get('/:id', getUser);
-router.post('/', createUser);
+router.route('/register').post(checkRegister, createUser);
 router.put('/:id', updateUser);
 router.delete('/:id', deleteUser);
 

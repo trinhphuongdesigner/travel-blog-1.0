@@ -65,7 +65,7 @@ module.exports = {
       });
       const result = await newCategory.save();
       res.json({
-        status: 200,
+        status: 201,
         message: 'Create Category Success',
         payload: result,
       });

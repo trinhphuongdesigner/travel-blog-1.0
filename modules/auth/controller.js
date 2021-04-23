@@ -1,11 +1,21 @@
-// const passport = require('passport');
+const { validationResult } = require('express-validator/check');
 
 const { User } = require('../../models');
 
 module.exports = {
-  login: async (req, res) => {
+  renderLogin: (req, res) => {
+    res.render('admin/login');
+  },
+
+  login: (req, res) => {
     const { email, password } = req.body;
-    await User.findOne({ email }).exec((err, user) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+
+    User.findOne({ email }).exec((err, user) => {
       if (err) {
         res.json({
           status: 404,
@@ -16,7 +26,7 @@ module.exports = {
       }
       if (user && user.isBlocked) {
         res.json({
-          status: 200,
+          status: 403,
           message: 'Your Account is Blocked',
           payload: user,
         });
@@ -24,11 +34,14 @@ module.exports = {
       }
       if (!user || !user.comparePassword(password)) {
         res.json({
-          status: 200,
+          status: 401,
           message: 'UseName or Password is Not Correct',
         });
         return;
       }
+      req.session.user = user;
+
+      // res.redirect('/admin/dashboard');
       res.json({
         status: 200,
         message: 'Login Success',
@@ -37,12 +50,22 @@ module.exports = {
     });
   },
 
+  renderRegister: (req, res) => {
+    res.render('admin/register');
+  },
+
   register: (req, res) => {
-    const { email } = req.body;
+    const { email, password } = req.body;
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+
     User.findOne({ email }, (err, user) => {
       if (err) {
         res.json({
-          status: 500,
+          status: 404,
           message: 'Cannot find an account',
           payload: err,
         });
@@ -50,16 +73,17 @@ module.exports = {
       }
       if (user) {
         res.json({
-          status: 500,
+          status: 400,
           message: 'Account is Existed',
         });
         return;
       }
 
-      const cUser = new User({
-        ...req.body,
+      const newUser = new User({
+        email,
+        password,
       });
-      cUser.save((saveErr, result) => {
+      newUser.save((saveErr, result) => {
         if (saveErr) {
           res.json({
             status: 400,
@@ -69,13 +93,25 @@ module.exports = {
           return;
         }
         req.session.user = user;
-        // res.redirect('/admin');
+
+        // res.redirect('/admin/dashboard');
         res.json({
-          status: 200,
+          status: 201,
           message: 'Create User Success',
           payload: result,
         });
       });
+    });
+  },
+
+  logoutController: (req, res) => {
+    req.session.destroy((err) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      console.log('Logout success >>>');
+      // res.redirect('/admin/login');
     });
   },
 };

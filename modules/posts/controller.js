@@ -108,7 +108,7 @@ module.exports = {
       const postId = result._id;
       updatePostActivities(userId, postId, 'CREATE');
       res.json({
-        status: 200,
+        status: 201,
         message: 'Create Post Success',
         payload: result,
       });

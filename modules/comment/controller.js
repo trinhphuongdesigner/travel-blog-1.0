@@ -59,7 +59,7 @@ module.exports = {
       });
       const result = await newComment.save();
       res.json({
-        status: 200,
+        status: 201,
         message: 'Create Comment Success',
         payload: result,
       });
