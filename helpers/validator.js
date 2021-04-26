@@ -19,16 +19,12 @@ const checkCategory = [
 const checkComment = [
   check('userId').not().isEmpty().withMessage('User is required'),
   check('postId').not().isEmpty().withMessage('Post is required'),
-  check('content', 'Content must 6-1500 chars').custom((value) => {
-    return value.trim().length >= 6 && value.trim().length <= 1500;
-  }),
+  check('content', 'Content must 6-1500 chars').custom((value) => value.trim().length >= 6 && value.trim().length <= 1500),
 ];
 
 const checkPost = [
   check('title').not().isEmpty().withMessage('Title is required'),
-  check('content', 'Content must 6-1500 chars').custom((value) => {
-    return value.trim().length >= 6 && value.trim().length <= 1500;
-  }),
+  check('content', 'Content must 6-1500 chars').custom((value) => value.trim().length >= 6 && value.trim().length <= 1500),
   check('userId').not().isEmpty().withMessage('Author is required'),
   check('categoryId').not().isEmpty().withMessage('Category is required'),
 ];
