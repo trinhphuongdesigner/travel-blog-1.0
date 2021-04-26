@@ -5,16 +5,15 @@ const router = express.Router();
 const {
   getBookmarkFolders,
   createBookmarkFolder,
-  updatebookmarkFolder,
-  deletebookmarkFolder,
+  updateBookmarkFolder,
+  deleteBookmarkFolder,
 } = require('./controller');
 
+const { checkBookmarkFolder } = require('../../helpers/validator');
+
 router.get('/', getBookmarkFolders);
-
-router.post('/', createBookmarkFolder);
-
-router.put('/:id', updatebookmarkFolder);
-
-router.delete('/:id', deletebookmarkFolder);
+router.post('/', checkBookmarkFolder, createBookmarkFolder);
+router.put('/:id', updateBookmarkFolder);
+router.delete('/:id', deleteBookmarkFolder);
 
 module.exports = router;

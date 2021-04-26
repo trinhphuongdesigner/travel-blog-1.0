@@ -1,3 +1,5 @@
+const { validationResult } = require('express-validator');
+
 const { UserFollower } = require('../../models');
 
 module.exports = {
@@ -7,12 +9,16 @@ module.exports = {
       let result = null;
       if (type === 'follower') {
         // lấy danh sách những người mình theo dõi
-        result = await UserFollower.find({ followerId: userId })
+        const followerId = userId;
+        result = await UserFollower.find({ followerId })
+          .populate('followingId', 'firstName lastName email')
           .select()
           .lean();
       } else {
         // lấy danh sách những người theo dõi mình
-        result = await UserFollower.find({ followingId: userId })
+        const followingId = userId;
+        result = await UserFollower.find({ followingId })
+          .populate('followerId', 'firstName lastName email')
           .select()
           .lean();
       }
@@ -42,6 +48,12 @@ module.exports = {
 
   createUserFollower: async (req, res) => {
     try {
+      const errors = validationResult(req);
+
+      if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+      }
+      
       const newFollow = new UserFollower({
         ...req.body,
       });
@@ -63,7 +75,7 @@ module.exports = {
   deleteUserFollower: async (req, res) => {
     try {
       const { id } = req.params;
-      const result = await UserFollower.remove({ _id: id });
+      const result = await UserFollower.deleteOne({ _id: id });
       res.json({
         status: 200,
         message: 'Unfollow Success',

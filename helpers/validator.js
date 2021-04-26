@@ -33,10 +33,10 @@ const checkPost = [
   check('categoryId').not().isEmpty().withMessage('Category is required'),
 ];
 
+// Not use now
 const checkPostActivity = [
   check('postId').not().isEmpty().withMessage('Post is required'),
   check('userId').not().isEmpty().withMessage('Author is required'),
-  check('activity').not().isEmpty().withMessage('Activity is required'),
 ];
 
 const checkLogin = [

@@ -9,8 +9,10 @@ const {
   updateBookmarkLink,
 } = require('./controller');
 
+const { checkBookmarkLink } = require('../../helpers/validator');
+
 router.get('/', getBookmarkLinks);
-router.post('/', createBookmarkLink);
+router.post('/', checkBookmarkLink, createBookmarkLink);
 router.put('/:id', updateBookmarkLink);
 router.delete('/:id', deleteBookmarkLink);
 

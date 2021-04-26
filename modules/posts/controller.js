@@ -1,11 +1,13 @@
+const { validationResult } = require('express-validator');
+
 const { Post, PostActivity } = require('../../models');
 
 const updatePostActivities = async (userId, postId, activity) => {
   const newPostActivity = new PostActivity({
     userId,
+    postId,
     activity,
     timeStamp: new Date().getTime(),
-    postId,
   });
   newPostActivity.save();
 };
@@ -109,6 +111,12 @@ module.exports = {
 
   createPost: async (req, res) => {
     try {
+      const errors = validationResult(req);
+
+      if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+      }
+
       const newPost = new Post({
         ...req.body,
       });
@@ -116,6 +124,7 @@ module.exports = {
       const { userId } = req.body;
       // eslint-disable-next-line no-underscore-dangle
       const postId = result._id;
+
       updatePostActivities(userId, postId, 'CREATE');
       res.json({
         status: 201,
@@ -160,7 +169,7 @@ module.exports = {
   deletePost: async (req, res) => {
     try {
       const { id } = req.params;
-      const result = await Post.remove({ _id: id });
+      const result = await Post.deleteOne({ _id: id });
       updatePostActivities(req.body.userId, id, 'DELETE');
 
       res.json({

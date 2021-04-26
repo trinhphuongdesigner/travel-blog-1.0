@@ -6,10 +6,6 @@ const flash = require('connect-flash');
 const MongoStore = require('connect-mongo');
 require('dotenv').config();
 
-// const passport = require('passport');
-// const LocalStrategy = require('passport-local');
-// const { User } = require('./models');
-
 const app = express();
 
 const routes = require('./routers');
@@ -32,9 +28,9 @@ app.use(session({
 }));
 app.use(flash());
 
-// passport.serializeUser(User.serializeUser()); // session encoding
-// passport.deserializeUser(User.deserializeUser()); // session decoding
-// passport.use(new LocalStrategy(User.authenticate()));
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
 
 app.set('view engine', 'ejs');
 app.set('views', './views');
@@ -44,9 +40,6 @@ app.engine('ejs', ejsMate);
 app.use(express.urlencoded({ extended: true }));
 // parse application/json
 app.use(express.json());
-
-// app.use(passport.initialize());
-// app.use(passport.session());
 
 app.use('/static', express.static('./static'));
 

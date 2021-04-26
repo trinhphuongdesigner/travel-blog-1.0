@@ -10,9 +10,11 @@ const {
   deletePost,
 } = require('./controller');
 
+const { checkPost } = require('../../helpers/validator');
+
 router.get('/', getPosts);
 router.get('/:id', getPost);
-router.post('/', createPost);
+router.post('/', checkPost, createPost);
 router.put('/:id', updatePost);
 router.delete('/:id', deletePost);
 

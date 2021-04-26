@@ -1,4 +1,4 @@
-const { validationResult } = require('express-validator/check');
+const { validationResult } = require('express-validator');
 
 const { User } = require('../../models/index');
 
@@ -133,7 +133,7 @@ module.exports = {
   deleteUser: async (req, res) => {
     try {
       const { id } = req.params;
-      const result = await User.remove({ _id: id });
+      const result = await User.deleteOne({ _id: id });
 
       res.json({
         status: 200,
