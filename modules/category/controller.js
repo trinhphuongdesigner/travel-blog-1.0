@@ -89,20 +89,39 @@ module.exports = {
   updateCategory: async (req, res) => {
     try {
       const { id } = req.params;
-      const result = await Category.updateOne(
-        { _id: id },
-        {
-          $set: {
-            ...req.body,
-            updatedAt: new Date().getTime(),
+      const { type } = req.body;
+
+      if (type === 'DELETE') {
+        const result = await Category.updateOne(
+          { _id: id },
+          {
+            $set: {
+              isDeleted: true,
+              updatedAt: new Date().getTime(),
+            },
           },
-        },
-      );
-      res.json({
-        status: 200,
-        message: 'Update Category Success',
-        payload: result,
-      });
+        );
+        res.json({
+          status: 200,
+          message: 'Update Category Success',
+          payload: result,
+        });
+      } else {
+        const result = await Category.updateOne(
+          { _id: id },
+          {
+            $set: {
+              ...req.body,
+              updatedAt: new Date().getTime(),
+            },
+          },
+        );
+        res.json({
+          status: 200,
+          message: 'Update Category Success',
+          payload: result,
+        });
+      }
     } catch (err) {
       res.json({
         status: 500,

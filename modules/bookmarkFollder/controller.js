@@ -1,6 +1,6 @@
 const { validationResult } = require('express-validator');
 
-const { BookmarkFolder } = require('../../models');
+const { BookmarkFolder, BookmarkLink } = require('../../models');
 
 module.exports = {
   getBookmarkFolders: async (req, res) => {
@@ -102,6 +102,18 @@ module.exports = {
 
   updateBookmarkFolder: async (req, res) => {
     try {
+      // let params = {
+      //   name: req.body.name,
+      //   email: req.body.emaill,
+      //   password: req.body.password
+      // };
+
+      // for (let prop in params) if (!params[prop]) delete params[prop]; //This will not handle intentionally setting to false, empty string, null, 0, or other falsey values.
+
+      // let params = {};
+
+      // for (let prop in req.body) if (req.body[prop]) params[prop] = req.body[prop];
+
       const { id } = req.params; // Lay ID tu URL
       const result = await BookmarkFolder.updateOne(
         { _id: id },
@@ -129,6 +141,34 @@ module.exports = {
   deleteBookmarkFolder: async (req, res) => {
     try {
       const { id } = req.params;
+      const { type, userId } = req.body;
+
+      // nếu kiểu là xóa cứng > xóa cả folder và các link trong folder.
+      if (type === 'HARD_DELETE') {
+        try {
+          BookmarkLink.deleteMany({ bookmarkFolderId: id });
+          res.json({
+            status: 200,
+            message: 'Delete Bookmark Link Success',
+          });
+        } catch (err) {
+          res.json({
+            status: 500,
+            message: 'Internal Server Error',
+            payload: err,
+          });
+        }
+      } else { // di chuyển các link trong folder vào 1 thư mục Other
+        // thực hiện tìm kiếm thư mục, nếu không có thì tạo mới.
+        const result = await BookmarkFolder.findOneAndUpdate({ title: 'Other', userId }, {}, { upsert: true });
+        // eslint-disable-next-line no-underscore-dangle
+        BookmarkLink.updateMany({ bookmarkFolderId: id }, { bookmarkFolderId: result._id });
+        res.json({
+          status: 200,
+          message: 'Move Bookmark Link Success',
+        });
+      }
+
       const result = await BookmarkFolder.deleteOne({ _id: id });
       res.json({
         status: 200,

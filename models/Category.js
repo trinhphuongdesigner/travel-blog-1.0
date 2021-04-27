@@ -21,6 +21,10 @@ const categorySchema = new Schema({
     unique: true,
     trim: true,
   },
+  isDeleted: {
+    type: Boolean,
+    default: false,
+  },
   createdAt: {
     type: Date,
     default: new Date(),
