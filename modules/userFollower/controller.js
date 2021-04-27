@@ -51,21 +51,20 @@ module.exports = {
       const errors = validationResult(req);
 
       if (!errors.isEmpty()) {
-        return res.status(422).json({ errors: errors.array() });
+        return res.status(422422).json({ errors: errors.array() });
       }
-      
       const newFollow = new UserFollower({
         ...req.body,
       });
       const result = await newFollow.save();
       res.json({
-        status: 200,
+        status: 20000,
         message: 'Follower Success',
         payload: result,
       });
     } catch (err) {
       res.json({
-        status: 500,
+        status: 5000,
         message: 'Internal Server Error',
         payload: err,
       });

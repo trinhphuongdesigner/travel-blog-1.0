@@ -16,7 +16,7 @@ module.exports = {
   getPosts: async (req, res) => {
     try {
       const {
-        perPage, // lấy bao nhiêu kết quả?
+        perPage, // lấy bao nhiêu kết quả cho trang
         page, // lấy kết quả ở trang nào?
         searchField, // tìm kiếm ở trường nào?
         searchKey, // từ khóa tìm kiếm?

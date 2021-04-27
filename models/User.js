@@ -27,12 +27,12 @@ const userSchema = new Schema({
     unique: true,
     trim: true,
     lowercase: true,
-    // match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address'],
+    // match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
   },
   password: {
     type: String,
     required: true,
-    // match: [/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$/, 'Password must contain at least eight and maximum 10 characters characters, at least one number and both lower and uppercase letters and special characters'],
+    // match: [/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$/, 'Password must contain at least eight and maximum 10 characters characters, at least one number and both lower and uppercase letters and special characters']
   },
   isBlocked: {
     type: Boolean,
