@@ -13,7 +13,7 @@ const checkBookmarkLink = [
 ];
 
 const checkCategory = [
-  check('title').not().isEmpty().withMessage('Title is required'),
+  check('name').not().isEmpty().withMessage('Name is required'),
 ];
 
 const checkComment = [
@@ -49,9 +49,8 @@ const checkRegister = [
   check('password').not().isEmpty().withMessage('Password is required')
     .isLength({ min: 6 })
     .withMessage('Password is so sort'),
-  check('repassword', 'Password is not match').custom((value, { req }) => (
-    req.body.password === value
-  )),
+  check('phone').isMobilePhone().withMessage('Please fill a valid phone number'),
+  check('repassword', 'Password is not match').custom((value, { req }) => req.body.password === value),
 ];
 
 const checkUserFollower = [

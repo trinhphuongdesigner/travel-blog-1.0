@@ -102,6 +102,7 @@ module.exports = {
 
       const commentListResult = await Comment.find({ postId: id })
         .populate('userId', 'firstName lastName')
+        .populate('categoryId', 'name slug isDeleted')
         .skip((defaultPerPage * defaultPage) - defaultPerPage)
         .limit(defaultPerPage)
         .select('')

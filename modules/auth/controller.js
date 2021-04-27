@@ -80,10 +80,7 @@ module.exports = {
         return;
       }
 
-      const newUser = new User({
-        email,
-        password,
-      });
+      const newUser = new User({ ...req.body });
       newUser.save((saveErr, result) => {
         if (saveErr) {
           res.json({

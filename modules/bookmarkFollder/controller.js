@@ -108,7 +108,8 @@ module.exports = {
       //   password: req.body.password
       // };
 
-      // for (let prop in params) if (!params[prop]) delete params[prop]; //This will not handle intentionally setting to false, empty string, null, 0, or other falsey values.
+      // for (let prop in params) if (!params[prop]) delete params[prop];
+      // Not handle intentionally setting to false, empty string, null, 0, or other falsey values.
 
       // let params = {};
 
@@ -143,7 +144,7 @@ module.exports = {
       const { id } = req.params;
       const { type, userId } = req.body;
 
-      // nếu kiểu là xóa cứng > xóa cả folder và các link trong folder.
+      // nếu type là xóa cứng > xóa cả folder và các link trong folder.
       if (type === 'HARD_DELETE') {
         try {
           BookmarkLink.deleteMany({ bookmarkFolderId: id });
@@ -159,8 +160,9 @@ module.exports = {
           });
         }
       } else { // di chuyển các link trong folder vào 1 thư mục Other
-        // thực hiện tìm kiếm thư mục, nếu không có thì tạo mới.
+        // thực hiện tìm kiếm thư mục Other, nếu không tìm được thì tạo mới.
         const result = await BookmarkFolder.findOneAndUpdate({ title: 'Other', userId }, {}, { upsert: true });
+        // thay thế id của thư mục sắp sửa bị xóa bằng id của thư mục Other
         // eslint-disable-next-line no-underscore-dangle
         BookmarkLink.updateMany({ bookmarkFolderId: id }, { bookmarkFolderId: result._id });
         res.json({
