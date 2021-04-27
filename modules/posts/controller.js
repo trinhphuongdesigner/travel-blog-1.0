@@ -1,6 +1,6 @@
 const { validationResult } = require('express-validator');
 
-const { Post, PostActivity } = require('../../models');
+const { Post, PostActivity, Comment } = require('../../models');
 
 const updatePostActivities = async (userId, postId, activity) => {
   const newPostActivity = new PostActivity({
@@ -86,8 +86,12 @@ module.exports = {
   getPost: async (req, res) => {
     try {
       const { id } = req.params;
-      const result = await Post.findOne({ _id: id }).lean();
-      if (!result) {
+      const { perPage, page, order } = req.query;
+      const defaultPerPage = Number(perPage) || 12;
+      const defaultPage = Number(page) || 1;
+
+      const postResult = await Post.findOne({ _id: id }).lean();
+      if (!postResult) {
         res.json({
           status: 404,
           message: 'Not found',
@@ -95,10 +99,42 @@ module.exports = {
         });
         return;
       }
-      res.json({
-        status: 200,
-        message: 'Get Post Success',
-        payload: result,
+
+      const commentListResult = await Comment.find({ postId: id })
+        .populate('userId', 'firstName lastName')
+        .skip((defaultPerPage * defaultPage) - defaultPerPage)
+        .limit(defaultPerPage)
+        .select('')
+        .sort({ createdAt: order || 'asc' })
+        .lean();
+      if (!commentListResult) {
+        res.json({
+          status: 404,
+          message: 'Not found',
+          payload: null,
+        });
+        return;
+      }
+
+      Comment.countDocuments({ postId: id }).exec((error, count) => {
+        if (error) {
+          return res.json(error);
+        }
+        return res.json({
+          status: 200,
+          message: 'Get Comments Success',
+          payload: {
+            postData: postResult,
+            commetnData: {
+              total: count,
+              totalPage: Math.ceil(count / defaultPerPage),
+              currentPage: defaultPage,
+              itemInPage: commentListResult.length,
+              take: defaultPerPage,
+              data: commentListResult,
+            },
+          },
+        });
       });
     } catch (err) {
       res.json({
@@ -112,7 +148,6 @@ module.exports = {
   createPost: async (req, res) => {
     try {
       const errors = validationResult(req);
-
       if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
       }
@@ -121,6 +156,7 @@ module.exports = {
         ...req.body,
       });
       const result = await newPost.save();
+
       const { userId } = req.body;
       // eslint-disable-next-line no-underscore-dangle
       const postId = result._id;
@@ -142,16 +178,18 @@ module.exports = {
 
   updatePost: async (req, res) => {
     try {
-      const { id } = req.params;
+      const postId = req.params.id;
+      const { userId } = req.body;
       const result = await Post.updateOne(
-        { _id: id },
+        { _id: postId },
         {
           $set: {
             ...req.body,
           },
         },
       );
-      updatePostActivities(req.body.userId, id, 'UPDATE');
+      updatePostActivities(userId, postId, 'UPDATE');
+
       res.json({
         status: 200,
         message: 'Update Post Success',
@@ -168,9 +206,10 @@ module.exports = {
 
   deletePost: async (req, res) => {
     try {
-      const { id } = req.params;
-      const result = await Post.deleteOne({ _id: id });
-      updatePostActivities(req.body.userId, id, 'DELETE');
+      const postId = req.params.id;
+      const { userId } = req.body;
+      const result = await Post.deleteOne({ _id: postId });
+      updatePostActivities(userId, postId, 'DELETE');
 
       res.json({
         status: 200,

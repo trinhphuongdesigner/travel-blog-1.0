@@ -16,13 +16,5 @@
   "rules": {
     "consistent-return": "off",
     "linebreak-style": 0
-    // "eslint-disable-next-line": "no-console"
-    // "prettier/prettier": "error",
-    // "no-unused-vars": "warn",
-    // "no-console": "off",
-    // "func-names": "off",
-    // "no-process-exit": "off",
-    // "object-shorthand": "off",
-    // "class-methods-use-this": "off"
   }
 }
