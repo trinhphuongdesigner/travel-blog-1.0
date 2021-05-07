@@ -1,3 +1,5 @@
+const getSlug = require('speakingurl');
+
 const { validationResult } = require('express-validator');
 
 const { Category } = require('../../models');
@@ -67,6 +69,20 @@ module.exports = {
       }
 
       const { name, status } = req.body;
+
+      const slugName = getSlug(name, { lang: 'vn' });
+
+      const check = await Category.findOne({ slug: slugName }).lean();
+
+      if (check) {
+        res.json({
+          status: 400,
+          message: 'Category is Existed',
+        });
+        return;
+      }
+
+      // kiem tra slug da ton tai chua
       const newCategory = new Category({
         name,
         status,
@@ -107,6 +123,20 @@ module.exports = {
           payload: result,
         });
       } else {
+        if (req.body.name) {
+          const slugName = getSlug(req.body.name, { lang: 'vn' });
+
+          const check = await Category.findOne({ slug: slugName }).lean();
+
+          if (check) {
+            res.json({
+              status: 400,
+              message: 'Category is Existed',
+            });
+            return;
+          }
+        }
+        // kiem tra slug da ton tai chua
         const result = await Category.updateOne(
           { _id: id },
           {

@@ -41,11 +41,11 @@ categorySchema.pre('save', function (next) {
 
   if (!category.isModified('name')) return next();
 
-  const slug = getSlug(category.name, {
+  const slugName = getSlug(category.name, {
     lang: 'vn',
   });
 
-  category.slug = slug;
+  category.slug = slugName;
 
   next();
 });

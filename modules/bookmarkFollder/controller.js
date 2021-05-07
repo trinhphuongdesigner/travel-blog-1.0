@@ -147,10 +147,16 @@ module.exports = {
       // nếu type là xóa cứng > xóa cả folder và các link trong folder.
       if (type === 'HARD_DELETE') {
         try {
-          BookmarkLink.deleteMany({ bookmarkFolderId: id });
+          // remove folder
+          const deleteFolderResult = await BookmarkFolder.deleteOne({ _id: id });
+          // remove link
+          const deleteLinkResult = await BookmarkLink.remove({ bookmarkFolderId: id });
+
           res.json({
             status: 200,
-            message: 'Delete Bookmark Link Success',
+            message: 'Delete Bookmark Folder Success',
+            linkDeleted: deleteLinkResult.deletedCount,
+            folderDeleted: deleteFolderResult.deletedCount,
           });
         } catch (err) {
           res.json({

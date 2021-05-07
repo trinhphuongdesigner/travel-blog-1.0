@@ -53,7 +53,7 @@ module.exports = {
       if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
       }
-      
+
       const newFollow = new UserFollower({
         ...req.body,
       });
